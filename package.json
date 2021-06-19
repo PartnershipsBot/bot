@@ -1,0 +1,18 @@
+{
+  "main": "src/sharding.js",
+  "scripts": {
+    "start": "node ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PartnershipsBot/bot.git"
+  },
+  "author": "djoh",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "discord.js": "^12.5.1",
+    "express": "^4.17.1",
+    "mongoose": "^5.11.19",
+    "node-fetch": "^2.6.1"
+  }
+}
