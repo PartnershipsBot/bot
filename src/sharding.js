@@ -10,10 +10,10 @@ const manager = new Discord.ShardingManager("./src/bot.js", {
 
 manager.on("shardCreate", shard => {
     shard.on("message", m => {
-      if (m == "respawn") {
-        console.log(`[Manager] Shard ${shard.id} has requested a restart.`);
-        shard.respawn();
-      };
+        if (m == "respawn") {
+            console.log(`[Manager] Shard ${shard.id} has requested a restart.`);
+            shard.respawn();
+        };
     });
     console.log(`[Manager] Shard ${shard.id} is starting.`);
 });
@@ -27,8 +27,8 @@ if (config.port) {
 
     api.get("/", (_, response) => response.json(botInfo));
     api.get("/newest", async (_, response) => {
-      const newInfo = await updateBotInfo();
-      return response.json(newInfo);
+        const newInfo = await updateBotInfo();
+        return response.json(newInfo);
     });
     api.listen(config.port);
 };
