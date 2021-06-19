@@ -1,5 +1,5 @@
 const { getPermissionLevel } = require("../constants/"),
-    { loadCommandDescriptions } = require("../commands/help.js"),
+    { loadCommandDescriptions } = require("../commands/help"),
     fs = require("fs");
 
 module.exports = async (message, prefix, gdb, db) => {
