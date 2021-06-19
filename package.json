@@ -1,5 +1,6 @@
 {
   "name": "Partnerships",
+  "description": "",
   "author": "djoh",
   "main": "src/sharding.js",
   "scripts": {
