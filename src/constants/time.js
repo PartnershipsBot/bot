@@ -6,7 +6,6 @@ module.exports.getDateFormatted = d => { // https://stackoverflow.com/a/23593099
     return [year, month, day].join("-");
 };
 
-
 /**
  * 
  * @param {Number} ms 

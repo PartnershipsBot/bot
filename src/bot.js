@@ -1,5 +1,4 @@
-const { request } = require('http');
-
+require('./extendedMessage');
 const Discord = require('discord.js'),
     config = require('../config'),
     { prefix } = require('../config'),
@@ -8,7 +7,7 @@ const Discord = require('discord.js'),
         messageCacheLifetime: 30,
         messageSweepInterval: 60,
         disableMentions: "everyone",
-        partials: ["USER", "CHANNEL", "GUILD_MEMBER", "MESSAGE", "REACTION"],
+        partials: ["USER", "GUILD_MEMBER", "MESSAGE"],
         presence: {
             status: "dnd",
             activity: {
@@ -17,7 +16,6 @@ const Discord = require('discord.js'),
             }
         },
         ws: {
-            intents: ["GUILDS", "GUILD_MESSAGES"],
             properties: {
                 $browser: "Discord iOS"
             }
@@ -26,10 +24,9 @@ const Discord = require('discord.js'),
     db = require("./database/")(client);
 
 client.plurify = require('./constants/').plurify;
-client.msToTime = require('./constants/time').msToTime;
+client.msToTime = require('./constants/').msToTime;
 client.getInvite = require('./constants/').getInvite;
 
-require('./extendedMessage');
 let shard = '[Shard N/A]';
 
 client.on('shardReady', async (id, unavailableGuilds) => {

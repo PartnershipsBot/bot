@@ -7,7 +7,7 @@ module.exports = {
     checkArgs: (args) => !args.length
 };
 
-const { msToTime } = require("../constants/index.js");
+const { msToTime } = require("../constants/");
 
 module.exports.run = async message => {
     const m = await message.channel.send("〽️ Собираю информацию...");
