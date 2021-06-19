@@ -1,4 +1,6 @@
 {
+  "name": "Partnerships",
+  "author": "djoh",
   "main": "src/sharding.js",
   "scripts": {
     "start": "node ."
@@ -7,8 +9,6 @@
     "type": "git",
     "url": "https://github.com/PartnershipsBot/bot.git"
   },
-  "author": "djoh",
-  "license": "GPL-3.0",
   "dependencies": {
     "discord.js": "^12.5.1",
     "express": "^4.17.1",
