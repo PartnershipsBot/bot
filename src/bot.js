@@ -26,6 +26,7 @@ const Discord = require('discord.js'),
 client.plurify = require('./constants/').plurify;
 client.msToTime = require('./constants/').msToTime;
 client.getInvite = require('./constants/').getInvite;
+client.db = db;
 
 let shard = '[Shard N/A]';
 

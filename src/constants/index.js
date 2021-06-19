@@ -25,7 +25,10 @@ module.exports.getPermissionLevel = member => {
  * @param {Guild} guild
  * @returns string
  */
-module.exports.getInvite = async guild => {
+module.exports.getInvite = async (guild, gdb) => {
+
+    if (!guild || !gdb) return false;
+
     let i;
 
     guild.fetchInvites()
@@ -34,7 +37,10 @@ module.exports.getInvite = async guild => {
 
     if (i) i = i.code;
     else {
-
+        let c = await guild.channels.fetch(gdb.get().channel);
+        c.createInvite({
+            maxAge: 0
+        }).then(inv => i = inv.code);
     };
 
     return i;
