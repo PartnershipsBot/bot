@@ -15,7 +15,7 @@ const fs = require("fs"),
     config = require("../../config");
 
 module.exports.run = async (message, args, gdb, { prefix, permissionLevel }) => {
-    if (!args) return message.reply({
+    if (!args[0]) return message.reply({
         embed: {
             title: `Помощь ${message.client.user.username}`,
             description: [
