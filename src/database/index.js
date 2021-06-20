@@ -12,7 +12,7 @@ module.exports = (client) => {
     });
 
     return {
-        guild: require("./guild")(client), // guild(guildid)
+        guild: require("./guild"), // guild(guildid)
         cacheGuilds: require("./guild").cacheAll
     };
 };

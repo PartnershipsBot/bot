@@ -41,7 +41,7 @@ const save = async (guildid, changes) => {
     } else dbSaveQueue.get(guildid).push(...changes);
 };
 
-module.exports = (client) => (async guildid => {
+module.exports = () => (async guildid => {
     if (!dbCache.has(guildid)) await load(guildid); // if the guild is unloaded for some reason, we load it
     return {
 
