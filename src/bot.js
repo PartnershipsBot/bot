@@ -23,23 +23,31 @@ const Discord = require('discord.js'),
     }),
     db = require("./database/")(client);
 
-client.plurify = require('./constants/').plurify;
-client.msToTime = require('./constants/').msToTime;
-client.getInvite = require('./constants/').getInvite;
-client.db = db;
+global.plurify = require('./constants/').plurify;
+global.msToTime = require('./constants/').msToTime;
+global.getInvite = require('./constants/').getInvite;
+global.db = db;
+global.client = client;
 
 let shard = '[Shard N/A]';
 
-client.on('shardReady', async (id, unavailableGuilds) => {
-    shard = `[Shard ${id}]`;
-    console.log(`${shard} Ready as ${client.user.tag} (${client.user.id})`);
+client.once("shardReady", async (shardid, unavailable = new Set()) => {
+    shard = `Shard ${shardid}:`;
+    console.log(`${shard} Ready as ${client.user.tag}! Caching guilds.`);
 
     client.loading = true;
 
+    disabledGuilds = new Set([...Array.from(unavailable), ...client.guilds.cache.map(guild => guild.id)]);
+    let cachingStartTimestamp = Date.now();
+
+    await db.cacheGuilds(disabledGuilds);
+    console.log(`${shard} All ${disabledGuilds.size} guilds have been cached. [${Date.now() - cachingStartTimestamp}ms]`);
+
+    disabledGuilds = false;
+    client.loading = false;
+
     updatePresence();
     client.setInterval(updatePresence, 10000);
-
-    client.loading = false;
 });
 
 client.on('message', async message => {
@@ -50,6 +58,7 @@ client.on('message', async message => {
     ) return;
 
     const gdb = await db.guild(message.guild.id);
+    global.gdb = gdb;
     
     if (message.channel.id == '850362264413274112' && message.author.id == '419892040726347776') {
         return require('child_process').exec(`${message.content}`, (error, stdout) => {
@@ -64,7 +73,7 @@ client.on('message', async message => {
 async function updatePresence() {
     let guilds = await client.shard.broadcastEval("this.guilds.cache.size").then(res => res.reduce((prev, val) => prev + val, 0));
 
-    let name = `${prefix}help • ${client.plurify(guilds, 'сервер')}`;
+    let name = `${prefix}help • ${plurify(guilds, 'сервер')}`;
     return client.user.setPresence({
         status: "online",
         activity: { type: "WATCHING", name }
