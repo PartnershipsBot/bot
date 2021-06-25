@@ -1,4 +1,5 @@
 const { GuildMember, Guild } = require('discord.js');
+const config = require('../../config');
 
 // load other files, and also general information
 module.exports = Object.assign({
@@ -31,7 +32,7 @@ module.exports.getInvite = async (guild, gdb) => {
     let i;
 
     guild.fetchInvites()
-        .then(c => i = c.find(inv => inv.inviter.id === client.user.id))
+        .then(c => i = c.find(inv => inv.inviter.id === guild.client.user.id))
         .catch(console.error());
 
     if (i) i = i.code;
