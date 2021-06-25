@@ -10,11 +10,10 @@ module.exports = {
 const os = require("os"),
     platform = `${os.type()} (${os.release()})`,
     djsversion = require("../../package.json").dependencies["discord.js"],
-    config = require("../../config"),
-    { msToTime } = require("../constants/index.js");
-  
+    config = require("../../config");
+
 let guilds = 0, users = 0, shardCount = 0, memory = 0, memoryUsage = "0MB", memoryGlobal = 0, memoryUsageGlobal = "0MB", nextUpdate = Date.now();
-  
+
 module.exports.run = async (message, _) => {
     if (nextUpdate < Date.now()) {
         nextUpdate = Date.now() + 300000; 
@@ -27,18 +26,18 @@ module.exports.run = async (message, _) => {
             users = message.client.users.cache.size;
             shardCount = 0;
         };
-  
+
         const { heapUsed, rss } = process.memoryUsage();
-  
+
         memory = heapUsed / (1048576); // 1024*1024
         if (memory >= 1024) memoryUsage = (memory / 1024).toFixed(2) + "GB";
         else memoryUsage = memory.toFixed(2) + "MB";
-  
+
         memoryGlobal = rss / (1048576); // 1024*1024
         if (memoryGlobal >= 1024) memoryUsageGlobal = (memoryGlobal / 1024).toFixed(2) + "GB";
         else memoryUsageGlobal = memoryGlobal.toFixed(2) + "MB";
     };
-  
+
     message.channel.send({
         embed: {
             title: `Информация о боте - ${message.client.user.tag}`,

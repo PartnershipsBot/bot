@@ -10,8 +10,6 @@ module.exports = {
     checkArgs: (args) => (args[0] == 'reset' && !args[1]) || (args[0] == 'set' && args[1])
 };
 
-const config = require('../../config');
-
 module.exports.run = async (message, args, gdb) => {
     let mode = args[0];
 
@@ -29,8 +27,7 @@ module.exports.run = async (message, args, gdb) => {
             let desc = args.join(' ').slice(3);
 
             if (desc.length > 2048) return async function () {
-                await message.react('❌');
-                await message.reply('❌ Описание сервера не должно быть длиннее чем 2048 символов.');
+                message.reply('❌ Описание сервера не должно быть длиннее чем 2048 символов.');
             };
 
             try {
