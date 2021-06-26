@@ -9,27 +9,5 @@ module.exports = {
 
 module.exports.run = async message => {
     const m = await message.channel.send("〽️ Собираю информацию...");
-    return m.edit("", {
-        embed: {
-            title: "🏓 Понг",
-            footer: {
-                icon_url: message.author.displayAvatarURL(),
-                text: `Запрос от ${message.author.tag}`
-            },
-            fields: [
-                {
-                    name: "Cервер",
-                    value: `\`${m.createdTimestamp - message.createdTimestamp}ms\``
-                },
-                {
-                    name: "API",
-                    value: `\`${Math.round(message.client.ws.ping)}ms\``
-                },
-                {
-                    name: "Аптайм",
-                    value: `\`${msToTime(message.client.uptime)}\``
-                }
-            ]
-        },
-    }).catch(err => message.channel.send(`❌ Произошла неизвестная ошибка. Пожалуйста, проинформируйте создателя бота. Лог ошибки:\n\`\`\`fix\n${err.stack}\n\`\`\``));
+    return m.edit(`🏓 Задержка сервера \`${m.createdTimestamp - message.createdTimestamp}ms\`, задержка API \`${Math.round(message.client.ws.ping)}ms\`, аптайм \`${msToTime(message.client.uptime)}\`.`);
 };
