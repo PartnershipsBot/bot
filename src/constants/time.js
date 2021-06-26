@@ -1,11 +1,3 @@
-// convert a date to YY-MM-DD format
-module.exports.getDateFormatted = d => { // https://stackoverflow.com/a/23593099
-    let month = (d.getMonth() + 1).toString(), day = d.getDate().toString(), year = d.getFullYear();
-    if (month.length < 2) month = "0" + month;
-    if (day.length < 2) day = "0" + day;
-    return [year, month, day].join("-");
-};
-
 /**
  * 
  * @param {Number} ms 

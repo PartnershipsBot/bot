@@ -14,11 +14,6 @@ const Discord = require('discord.js'),
                 type: "WATCHING",
                 name: "загрузочный экран"
             }
-        },
-        ws: {
-            properties: {
-                $browser: "Discord iOS"
-            }
         }
     }),
     db = require("./database/")(client);
