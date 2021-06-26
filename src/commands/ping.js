@@ -8,6 +8,6 @@ module.exports = {
 };
 
 module.exports.run = async message => {
-    const m = await message.channel.send("〽️ Собираю информацию...");
+    const m = await message.reply("〽️ Собираю информацию...");
     return m.edit(`🏓 Задержка сервера \`${m.createdTimestamp - message.createdTimestamp}ms\`, задержка API \`${Math.round(message.client.ws.ping)}ms\`, аптайм \`${msToTime(message.client.uptime)}\`.`);
 };
