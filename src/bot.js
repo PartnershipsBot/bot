@@ -27,7 +27,7 @@ global.client = client;
 let shard = '[Shard N/A]';
 
 client.once("shardReady", async (shardid, unavailable = new Set()) => {
-    shard = `Shard ${shardid}:`;
+    shard = `[Shard ${shardid}]`;
     console.log(`${shard} Ready as ${client.user.tag}! Caching guilds.`);
 
     client.loading = true;
