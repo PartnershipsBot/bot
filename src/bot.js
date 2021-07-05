@@ -16,13 +16,16 @@ const Discord = require('discord.js'),
             }
         }
     }),
+    console = require('manakin'),
     db = require("./database/")(client);
 
-global.plurify = require('./constants/').plurify;
-global.msToTime = require('./constants/').msToTime;
 global.getInvite = require('./constants/').getInvite;
-global.db = db;
+global.msToTime = require('./constants/').msToTime;
+global.plurify = require('./constants/').plurify;
+global.Discord = Discord;
+global.console = console;
 global.client = client;
+global.db = db;
 
 let shard = '[Shard N/A]';
 
@@ -33,10 +36,17 @@ client.once("shardReady", async (shardid, unavailable = new Set()) => {
     client.loading = true;
 
     disabledGuilds = new Set([...Array.from(unavailable), ...client.guilds.cache.map(guild => guild.id)]);
-    let cachingStartTimestamp = Date.now();
+    let guildCachingStart = Date.now();
 
     await db.cacheGuilds(disabledGuilds);
-    console.log(`${shard} All ${disabledGuilds.size} guilds have been cached. [${Date.now() - cachingStartTimestamp}ms]`);
+    console.log(`${shard} All ${disabledGuilds.size} guilds have been cached. [${Date.now() - guildCachingStart}ms]`);
+
+    let userCachingStart = Date.now();
+
+    for (const [id, guild] of client.guilds.cache) {
+        await guild.members.fetch();
+    };
+    console.log(`${shard} All ${client.users.cache.size} users have been cached. [${Date.now() - userCachingStart}ms]`);
 
     disabledGuilds = false;
     client.loading = false;
@@ -66,9 +76,9 @@ client.on('message', async message => {
 });
 
 async function updatePresence() {
-    let guilds = await client.shard.broadcastEval("this.guilds.cache.size").then(res => res.reduce((prev, val) => prev + val, 0));
+    let guildCount = await client.shard.broadcastEval("this.guilds.cache.size").then(res => res.reduce((prev, val) => prev + val, 0));
 
-    let name = `${prefix}help • ${plurify(guilds, 'сервер')}`;
+    let name = `${prefix}help • ${plurify(guildCount, 'сервер')}`;
     return client.user.setPresence({
         status: "online",
         activity: { type: "WATCHING", name }
