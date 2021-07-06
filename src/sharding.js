@@ -1,6 +1,7 @@
-const Discord = require('discord.js'),
-    express = require('express'),
-    config = require('../config');
+const
+    Discord = require('discord.js'),
+    config = require('../config'),
+    express = require('express');
 
 const manager = new Discord.ShardingManager('./src/bot.js', {
     totalShards: config.shards || 'auto',
