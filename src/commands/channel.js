@@ -27,6 +27,7 @@ module.exports.run = async (message, args, gdb) => {
             let c;
             if (message.mentions.channels.first()) c = message.mentions.channels.first().id
             else c = args[1];
+
             if (!c) c = message.channel.id;
 
             let gc = message.guild.channels.cache.get(c);

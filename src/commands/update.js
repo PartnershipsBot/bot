@@ -9,7 +9,7 @@ module.exports = {
 
 const { exec } = require('child_process');
 
-module.exports.run = async message => {
+module.exports.run = async (message) => {
     exec(`git pull origin main`, (error, stdout) => {
     	let res = (error || stdout);
         if (error) return message.reply(error, { code: "fix" });

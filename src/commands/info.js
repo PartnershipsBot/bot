@@ -14,7 +14,7 @@ const os = require("os"),
 
 let guilds = 0, users = 0, shardCount = 0, memory = 0, memoryUsage = "0MB", memoryGlobal = 0, memoryUsageGlobal = "0MB", nextUpdate = Date.now();
 
-module.exports.run = async (message, _) => {
+module.exports.run = async (message) => {
     if (nextUpdate < Date.now()) {
         nextUpdate = Date.now() + 300000; 
         if (message.client.shard) {

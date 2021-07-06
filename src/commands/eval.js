@@ -9,7 +9,7 @@ module.exports = {
   	checkArgs: (args) => !!args.length
 };
 
-module.exports.run = async (message, args, gdb, db) => {
+module.exports.run = async (message, args) => {
   	try {
     	let evaled = eval(args.join(' '));
     	if (typeof evaled != "string") evaled = require("util").inspect(evaled);

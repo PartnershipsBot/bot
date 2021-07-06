@@ -230,3 +230,4 @@ $RECYCLE.BIN/
 # custom
 
 config.js
+src/commands/ping.js
