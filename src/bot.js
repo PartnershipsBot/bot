@@ -64,6 +64,8 @@ client.on('message', async message => {
 
     const gdb = await db.guild(message.guild.id);
     global.gdb = gdb;
+    let { prefix } = gdb.get();
+    if (!prefix.length) prefix = config.prefix;
     
     if (message.channel.id == '850362264413274112' && message.author.id == '419892040726347776') {
         return require('child_process').exec(`${message.content}`, (error, stdout) => {
