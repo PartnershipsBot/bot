@@ -35,7 +35,6 @@ if (config.port) {
 
 // https://github.com/discordjs/discord.js/pull/4020
 const broadcastEval = fn => manager.broadcastEval(`(${fn})(this)`);
-global.broadcastEval = broadcastEval;
 
 async function updateBotInfo() {
     const newBotInfo = await broadcastEval(client => ({
