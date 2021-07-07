@@ -1,4 +1,5 @@
 require('./extendedMessage');
+require('manakin').global;
 const Discord = require('discord.js'),
     config = require('../config'),
     { prefix } = require('../config'),
@@ -16,14 +17,12 @@ const Discord = require('discord.js'),
             }
         }
     }),
-    console = require('manakin'),
     db = require("./database/")(client);
 
 global.getInvite = require('./constants/').getInvite;
 global.msToTime = require('./constants/').msToTime;
 global.plurify = require('./constants/').plurify;
 global.Discord = Discord;
-global.console = console;
 global.client = client;
 global.db = db;
 
