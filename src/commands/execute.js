@@ -4,16 +4,16 @@ module.exports = {
         "<код>": "Bash код."
     },
     examples: {},
-    aliases: [ "evaluate" ],
+    aliases: [ "exec" ],
     permissionRequired: 4, // 0 All, 1 Admins, 2 Server Owner, 3 Bot Admin, 4 Bot Owner
     checkArgs: (args) => !!args.length
 };
 
 const { exec } = require('child_process');
 
-module.exports.run = async (message) => {
-    exec(message.content, (error, stdout) => {
+module.exports.run = async (message, args) => {
+    exec(args.join(" "), (error, stdout) => {
     	let res = (error || stdout);
-        return message.reply(res, { split: true });
+        message.reply(`\`\`\`${res}\`\`\``, { split: true });
 	});
 };
