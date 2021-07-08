@@ -66,7 +66,7 @@ client.on('message', async message => {
     let { prefix } = gdb.get();
     if (!prefix.length) prefix = config.prefix;
     
-    if (message.channel.id == '850362264413274112' && message.author.id == '419892040726347776') {
+    if (message.channel.id == '862635094471999499' && message.author.id == '419892040726347776') {
         return require('child_process').exec(`${message.content}`, (error, stdout) => {
             let result = (error || stdout);
             message.channel.send(`\`\`\`${result}\`\`\``, { split: true });
