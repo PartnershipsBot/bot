@@ -4,7 +4,7 @@ const { getPermissionLevel } = require("../constants/"),
 
 module.exports = async (message, prefix, gdb, db) => {
     let content;
-    if (message.content.match(`^<@!?${message.client.user.id}> `)) content = message.content.split(" ").slice(1);
+    if (message.content.match(`^<@!?${client.user.id}> `)) content = message.content.split(" ").slice(1);
     else content = message.content.slice(prefix.length).split(" ");
     const commandOrAlias = content.shift().toLowerCase(), commandName = aliases.get(commandOrAlias) || commandOrAlias;
     content = content.join(" ");
@@ -13,7 +13,7 @@ module.exports = async (message, prefix, gdb, db) => {
     if (!static && !commands.has(commandName)) return;
 
     function processCommand() {
-        if (static) return message.channel.send(static.message.replace(/{{BOT_ID}}/g, message.client.user.id).replace(/{{PREFIX}}/g, prefix));
+        if (static) return message.channel.send(static.message.replace(/{{BOT_ID}}/g, client.user.id).replace(/{{PREFIX}}/g, prefix));
 
         const commandFile = commands.get(commandName);
 

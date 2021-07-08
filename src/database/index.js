@@ -1,6 +1,6 @@
 const config = require("../../config"), mongoose = require("mongoose");
 
-module.exports = (client) => {
+module.exports = () => {
     mongoose.connect(config.database_uri, {
         useNewUrlParser: true,
         useFindAndModify: false,

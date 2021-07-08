@@ -2,7 +2,7 @@ module.exports = {
     description: "Информация и статистика бота.",
     usage: {},
     examples: {},
-    aliases: [ "stats", "botinfo", "botstats" ],
+    aliases: ["stats", "botinfo", "botstats"],
     permissionRequired: 0, // 0 All, 1 Admins, 2 Server Owner, 3 Bot Admin, 4 Bot Owner
     checkArgs: (args) => !args.length
 };
@@ -17,13 +17,13 @@ let guilds = 0, users = 0, shardCount = 0, memory = 0, memoryUsage = "0MB", memo
 module.exports.run = async (message) => {
     if (nextUpdate < Date.now()) {
         nextUpdate = Date.now() + 300000; 
-        if (message.client.shard) {
-            guilds = await message.client.shard.broadcastEval("this.guilds.cache.size").then(res => res.reduce((prev, val) => prev + val, 0));
-            users = await message.client.shard.broadcastEval("this.guilds.cache.map(g => g.memberCount).reduce((a, b) => a + b)").then(res => res.reduce((prev, val) => prev + val, 0));
-            shardCount = message.client.shard.count;
+        if (client.shard) {
+            guilds = await client.shard.broadcastEval("this.guilds.cache.size").then(res => res.reduce((prev, val) => prev + val, 0));
+            users = await client.shard.broadcastEval("this.guilds.cache.map(g => g.memberCount).reduce((a, b) => a + b)").then(res => res.reduce((prev, val) => prev + val, 0));
+            shardCount = client.shard.count;
         } else {
-            guilds = message.client.guilds.cache.size;
-            users = message.client.users.cache.size;
+            guilds = client.guilds.cache.size;
+            users = client.users.cache.size;
             shardCount = 0;
         };
 
@@ -40,7 +40,7 @@ module.exports.run = async (message) => {
 
     message.channel.send({
         embed: {
-            title: `Информация о боте - ${message.client.user.tag}`,
+            title: `Информация о боте - ${client.user.tag}`,
             color: config.color,
             timestamp: Date.now(),
             footer: {
@@ -53,7 +53,7 @@ module.exports.run = async (message) => {
                     value: [
                         `**ОС**: \`${platform}\``,
                         `**Библиотека**: \`discord.js${djsversion}\``,
-                        `**Исп. ОЗУ**: \`${message.client.shard ? memoryUsageGlobal : memoryUsage}\``
+                        `**Исп. ОЗУ**: \`${client.shard ? memoryUsageGlobal : memoryUsage}\``
                     ].join("\n"),
                     inline: true
                 },
@@ -67,10 +67,10 @@ module.exports.run = async (message) => {
                     inline: true
                 },
                 {
-                    name: message.client.shard ? `🔷 Этот шард (${message.guild.shardID})` : false,
+                    name: client.shard ? `🔷 Этот шард (${message.guild.shardID})` : false,
                     value: [
-                        `**Кол-во серверов**: \`${message.client.guilds.cache.size}\``,
-                        `**Кол-во юзеров**: \`${message.client.guilds.cache.map(g => g.memberCount).reduce((a, b) => a + b)}\``,
+                        `**Кол-во серверов**: \`${client.guilds.cache.size}\``,
+                        `**Кол-во юзеров**: \`${client.guilds.cache.map(g => g.memberCount).reduce((a, b) => a + b)}\``,
                         `**Исп. ОЗУ**: \`${memoryUsage}\``
                     ].join("\n"),
                     inline: true
@@ -78,7 +78,7 @@ module.exports.run = async (message) => {
                 {
                     name: "🌐 Ссылки",
                     value: [
-                        `**Пригласи меня:** [тык](https://discord.com/api/oauth2/authorize?client_id=${message.client.user.id}&permissions=8&scope=bot%20applications.commands)`,
+                        `**Пригласи меня:** [тык](https://discord.com/api/oauth2/authorize?client_id=${client.user.id}&permissions=8&scope=bot%20applications.commands)`,
                         "**Сервер поддержки**: https://discord.gg/PrJthKRbvz"
                     ].join("\n"),
                     inline: false
