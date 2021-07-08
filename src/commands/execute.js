@@ -14,6 +14,6 @@ const { exec } = require('child_process');
 module.exports.run = async (message, args) => {
     exec(args.join(" "), (error, stdout) => {
     	let res = (error || stdout);
-        message.reply(`\`\`\`${res}\`\`\``, { split: true });
+        message.channel.send(`\`\`\`${res}\`\`\``, { split: true });
 	});
 };
