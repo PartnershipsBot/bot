@@ -17,7 +17,7 @@ const fs = require("fs"),
 module.exports.run = async (message, args, gdb, { prefix, permissionLevel }) => {
     if (!args[0]) return message.reply({
         embed: {
-            title: `Помощь ${message.client.user.username}`,
+            title: `Помощь ${client.user.username}`,
             description: [
                 `• Если Вам нужна помощь по команде, используйте \`${prefix}help <команда>\`.`
             ].join("\n"),
