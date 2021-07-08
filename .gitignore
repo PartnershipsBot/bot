@@ -230,4 +230,4 @@ $RECYCLE.BIN/
 # custom
 
 config.js
-package-lock.json
+src/commands/ping.js
