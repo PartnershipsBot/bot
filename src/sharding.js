@@ -1,7 +1,8 @@
 const
     Discord = require('discord.js'),
     config = require('../config'),
-    express = require('express');
+    express = require('express'),
+    log = require("./handlers/logger");
 
 const manager = new Discord.ShardingManager('./src/bot.js', {
     totalShards: config.shards || 'auto',
@@ -12,11 +13,11 @@ const manager = new Discord.ShardingManager('./src/bot.js', {
 manager.on('shardCreate', shard => {
     shard.on('message', m => {
         if (m == 'respawn') {
-            console.log(`[Manager] Shard ${shard.id} has requested a restart.`);
+            log.log(`[Manager] Shard ${shard.id} has requested a restart.`);
             shard.respawn();
         };
     });
-    console.log(`[Manager] Shard ${shard.id} is starting.`);
+    log.log(`[Manager] Shard ${shard.id} is starting.`);
 });
 
 let botInfo = {};

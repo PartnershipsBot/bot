@@ -1,5 +1,4 @@
 require('./extendedMessage');
-require('manakin').global;
 const Discord = require('discord.js'),
     config = require('../config'),
     { prefix } = require('../config'),
@@ -17,20 +16,22 @@ const Discord = require('discord.js'),
             }
         }
     }),
-    db = require("./database/")(client);
+    log = require("./handlers/logger"),
+    db = require("./database/")();
 
 global.getInvite = require('./constants/').getInvite;
 global.msToTime = require('./constants/').msToTime;
 global.plurify = require('./constants/').plurify;
 global.Discord = Discord;
 global.client = client;
+global.log = log;
 global.db = db;
 
 let shard = '[Shard N/A]';
 
 client.once("shardReady", async (shardid, unavailable = new Set()) => {
     shard = `[Shard ${shardid}]`;
-    console.log(`${shard} Ready as ${client.user.tag}! Caching guilds.`);
+    log.log(`${shard} Ready as ${client.user.tag}! Caching guilds.`);
 
     client.loading = true;
 
@@ -38,14 +39,14 @@ client.once("shardReady", async (shardid, unavailable = new Set()) => {
     let guildCachingStart = Date.now();
 
     await db.cacheGuilds(disabledGuilds);
-    console.log(`${shard} All ${disabledGuilds.size} guilds have been cached. [${Date.now() - guildCachingStart}ms]`);
+    log.log(`${shard} All ${disabledGuilds.size} guilds have been cached. [${Date.now() - guildCachingStart}ms]`);
 
     let userCachingStart = Date.now();
 
     for (const [id, guild] of client.guilds.cache) {
         await guild.members.fetch();
     };
-    console.log(`${shard} All ${client.users.cache.size} users have been cached. [${Date.now() - userCachingStart}ms]`);
+    log.log(`${shard} All ${client.users.cache.size} users have been cached. [${Date.now() - userCachingStart}ms]`);
 
     disabledGuilds = false;
     client.loading = false;
