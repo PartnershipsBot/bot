@@ -82,13 +82,13 @@ async function updatePresence() {
 };
 
 client
-    .on("error", err => console.log(`${shard} Client error. ${err}`))
-    .on("rateLimit", rateLimitInfo => console.log(`${shard} Rate limited. ${JSON.stringify(rateLimitInfo)}`))
-    .on("shardDisconnected", closeEvent => console.log(`${shard} Disconnected. ${closeEvent}`))
-    .on("shardError", err => console.log(`${shard} Error. ${err}`))
-    .on("shardReconnecting", () => console.log(`${shard} Reconnecting.`))
-    .on("shardResume", (_, replayedEvents) => console.log(`${shard} Resumed. ${replayedEvents} replayed events.`))
-    .on("warn", info => console.log(`${shard} Warning. ${info}`))
+    .on("error", err => log.log(`${shard} Client error. ${err}`))
+    .on("rateLimit", rateLimitInfo => log.log(`${shard} Rate limited. ${JSON.stringify(rateLimitInfo)}`))
+    .on("shardDisconnected", closeEvent => log.log(`${shard} Disconnected. ${closeEvent}`))
+    .on("shardError", err => log.log(`${shard} Error. ${err}`))
+    .on("shardReconnecting", () => log.log(`${shard} Reconnecting.`))
+    .on("shardResume", (_, replayedEvents) => log.log(`${shard} Resumed. ${replayedEvents} replayed events.`))
+    .on("warn", info => log.log(`${shard} Warning. ${info}`))
     .login(config.token);
 
-process.on('unhandledRejection', console.error);
+process.on('unhandledRejection', log.log);
