@@ -44,7 +44,7 @@ client.once("shardReady", async (shardid, unavailable = new Set()) => {
     let userCachingStart = Date.now();
 
     for (const [id, guild] of client.guilds.cache) {
-        await guild.members.fetch();
+        await guild.members.fetch({ force: true });
     };
     log.log(`${shard} All ${client.users.cache.size} users have been cached. [${Date.now() - userCachingStart}ms]`);
 
