@@ -10,10 +10,10 @@ const logger = (mode) => {
                 console.log(chalk.white(`[${timeFormatted} - INFO] ${output}`));
                 break;
             case 1:
-                console.log();
+                console.log(chalk.yellow(`[${timeFormatted} - WARN] ${output}`));
                 break;
             case 2:
-                console.log();
+                console.log(chalk.red(`[${timeFormatted} - ERROR] ${output}`));
                 break;
         };
     };

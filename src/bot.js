@@ -82,13 +82,13 @@ async function updatePresence() {
 };
 
 client
-    .on("error", err => log.log(`${shard} Client error. ${err}`))
-    .on("rateLimit", rateLimitInfo => log.log(`${shard} Rate limited. ${JSON.stringify(rateLimitInfo)}`))
-    .on("shardDisconnected", closeEvent => log.log(`${shard} Disconnected. ${closeEvent}`))
-    .on("shardError", err => log.log(`${shard} Error. ${err}`))
+    .on("error", err => log.error(`${shard} Client error. ${err}`))
+    .on("rateLimit", rateLimitInfo => log.warn(`${shard} Rate limited. ${JSON.stringify(rateLimitInfo)}`))
+    .on("shardDisconnected", closeEvent => log.warn(`${shard} Disconnected. ${closeEvent}`))
+    .on("shardError", err => log.error(`${shard} Error. ${err}`))
     .on("shardReconnecting", () => log.log(`${shard} Reconnecting.`))
     .on("shardResume", (_, replayedEvents) => log.log(`${shard} Resumed. ${replayedEvents} replayed events.`))
-    .on("warn", info => log.log(`${shard} Warning. ${info}`))
+    .on("warn", info => log.warn(`${shard} Warning. ${info}`))
     .login(config.token);
 
 process.on('unhandledRejection', log.log);
