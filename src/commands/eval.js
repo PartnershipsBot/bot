@@ -10,13 +10,16 @@ module.exports = {
 };
 
 module.exports.run = async (message, args) => {
-  	try {
-    	let evaled = eval(args.join(' '));
-    	if (typeof evaled != "string") evaled = require("util").inspect(evaled);
-    	return message.channel.send(evaled, { code: "js" });
-  	} catch(e) {
-    	let error = e;
-    	if (typeof e == "string") error = e.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203));
-    	return message.channel.send(e.stack, { code: "fix" });
-  	};
+	let content = args.join(" ");
+	try {
+	  	let evaled = await eval(content);
+	  	if (typeof evaled !== "string") evaled = require("util").inspect(evaled);
+	  
+	  	message.channel.send(`🆗 Evaluated successfully.\n\`\`\`js\n${evaled}\`\`\``);
+	} catch(e) {
+	  	let err;
+	  	if (typeof e == "string") err = e.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203));
+	  	else err = e;
+	  	message.channel.send(`🆘 JavaScript failed.\n\`\`\`fix\n${err}\`\`\``);
+	};
 };
