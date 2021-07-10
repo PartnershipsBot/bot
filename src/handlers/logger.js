@@ -7,7 +7,7 @@ const logger = (mode) => {
 
         switch (mode) {
             case 0:
-                console.log(chalk.white(`[${timeFormatted} - INFO] ${output}`));
+                console.log(chalk.whiteBright(`[${timeFormatted} - INFO] ${output}`));
                 break;
             case 1:
                 console.log(chalk.yellow(`[${timeFormatted} - WARN] ${output}`));
