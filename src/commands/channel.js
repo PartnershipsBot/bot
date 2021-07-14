@@ -16,7 +16,7 @@ module.exports.run = async (message, args, gdb) => {
     switch (mode) {
         case 'reset':
             try {
-                await gdb.set("channel", "")
+                await gdb.set("channel", "");
                 await message.react('✅');
                 await message.reply('✅ Канал отправки партнёрств был успешно сброшен');
             } catch (err) {
@@ -25,7 +25,7 @@ module.exports.run = async (message, args, gdb) => {
             break;
         case 'set':
             let c;
-            if (message.mentions.channels.first()) c = message.mentions.channels.first().id
+            if (message.mentions.channels.first()) c = message.mentions.channels.first().id;
             else c = args[1];
 
             if (!c) c = message.channel.id;
@@ -35,7 +35,7 @@ module.exports.run = async (message, args, gdb) => {
             if (!gc) return message.reply('❌ Не удалось найти указанный канал.');
             
             try {
-                await gdb.set("channel", c)
+                await gdb.set("channel", c);
                 await message.react('✅');
                 await message.reply(`✅ Канал отправки партнёрств был успешно установлен (<#${gc.id}>)`);
             } catch (err) {

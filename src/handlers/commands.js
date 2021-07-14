@@ -1,4 +1,5 @@
-const { getPermissionLevel } = require("../constants/"),
+const
+    { getPermissionLevel } = require("../constants/"),
     { loadCommandDescriptions } = require("../commands/help"),
     fs = require("fs");
 
@@ -13,7 +14,7 @@ module.exports = async (message, prefix, gdb, db) => {
     if (!static && !commands.has(commandName)) return;
 
     function processCommand() {
-        if (static) return message.channel.send(static.message.replace(/{{BOT_ID}}/g, client.user.id).replace(/{{PREFIX}}/g, prefix));
+        if (static) return message.channel.send(static.message.replace(/{{BOT_ID}}/g, client.user.id));
 
         const commandFile = commands.get(commandName);
 
@@ -21,16 +22,17 @@ module.exports = async (message, prefix, gdb, db) => {
         if (permissionLevel < commandFile.permissionRequired) return message.channel.send("❌ Недостаточно прав.");
 
         const args = (content.match(/"[^"]+"|[^ ]+/g) || []).map(arg => arg.startsWith("\"") && arg.endsWith("\"") ? arg.slice(1).slice(0, -1) : arg);
-        if (!commandFile.checkArgs(args, permissionLevel)) return message.channel.send(`❌ Неверные аргументы. Для помощи, напишите \`${prefix}help ${commandName}\`.`);
+        if (!commandFile.checkArgs(args)) return message.channel.send(`❌ Неверные аргументы. Для помощи, напишите \`${prefix}help ${commandName}\`.`);
 
-        return commandFile.run(message, args, gdb, { prefix, permissionLevel, db, content });
+        return commandFile.run(message, args, gdb, { prefix, permissionLevel, db });
     };
 
     await processCommand();
 };
 
 // loading commands
-const commands = new Map(),
+const
+    commands = new Map(),
     aliases = new Map(),
     statics = require("../commands/_static.json");
 

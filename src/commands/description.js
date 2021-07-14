@@ -24,7 +24,7 @@ module.exports.run = async (message, args, gdb) => {
             };
             break;
         case 'set':
-            let desc = args.join(' ').slice(3);
+            let desc = args.join(' ').slice(3).trim();
 
             if (desc.length > 2048) return async function () {
                 message.reply('❌ Описание сервера не должно быть длиннее чем 2048 символов.');

@@ -11,8 +11,7 @@ module.exports = {
     checkArgs: (args) => args.length <= 1
 };
 
-const fs = require("fs"),
-    config = require("../../config");
+const fs = require("fs"), config = require("../../config");
 
 module.exports.run = async (message, args, gdb, { prefix, permissionLevel }) => {
     if (!args[0]) return message.reply({
