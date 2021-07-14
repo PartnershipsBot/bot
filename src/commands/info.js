@@ -85,5 +85,8 @@ module.exports.run = async (message) => {
                 }
             ].filter(f => f.name) // filters out shard field if sharding is disabled
         }
-    }).catch(err => message.channel.send(`❌ Произошла неизвестная ошибка. Пожалуйста, проинформируйте создателя бота. Лог ошибки:\n\`\`\`fix\n${err.stack}\n\`\`\``));
+    }).catch(err => {
+        log.error(err);
+        message.reply("❌ Произошла неизвестная ошибка. Пожалуйста, проинформируйте создателя бота.");
+    });
 };

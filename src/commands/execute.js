@@ -9,7 +9,7 @@ module.exports = {
     checkArgs: (args) => !!args.length
 };
 
-const { exec } = require('child_process');
+const { exec } = require("child_process");
 
 module.exports.run = async (message, args) => {
     exec(args.join(" "), (error, stdout) => {

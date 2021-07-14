@@ -7,7 +7,7 @@ module.exports = {
     checkArgs: (args) => !args.length
 };
 
-const { exec } = require('child_process');
+const { exec } = require("child_process");
 
 module.exports.run = async (message) => {
     exec("git stash push --include-untracked");

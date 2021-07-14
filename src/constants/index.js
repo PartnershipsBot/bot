@@ -1,5 +1,5 @@
-const { GuildMember, Guild } = require('discord.js');
-const config = require('../../config');
+const { GuildMember, Guild } = require("discord.js");
+const config = require("../../config");
 
 // load other files, and also general information
 module.exports = Object.assign({

@@ -72,8 +72,11 @@ module.exports.run = async (message, args, gdb, { prefix, permissionLevel }) => 
                     }
                 ].filter(f => f.value)
             }
-        }).catch(err => message.reply(`❌ Произошла неизвестная ошибка. Пожалуйста, проинформируйте создателя бота. Лог ошибки:\n\`\`\`fix\n${err.stack}\n\`\`\``));
-    }
+        }).catch(err => {
+            log.error(err);
+            message.reply("❌ Произошла неизвестная ошибка. Пожалуйста, проинформируйте создателя бота.");
+        });
+    };
 };
 
 // loading commands
