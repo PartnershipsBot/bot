@@ -64,12 +64,13 @@ module.exports.plurify = (number, word) => {
         endsWith(number, 8) ||
         endsWith(number, 9)
     ) returning = `${number} ${word}ов`;
-    if (endsWith(number, 1)) returning = `${number} ${word}`;
-    if (
+    else if (endsWith(number, 1)) returning = `${number} ${word}`;
+    else if (
         endsWith(number, 2) ||
         endsWith(number, 3) ||
         endsWith(number, 4)
     ) returning = `${number} ${word}а`;
+    else return false;
 
     return returning;
 };
