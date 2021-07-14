@@ -1,18 +1,18 @@
 const
-    Discord = require('discord.js'),
-    config = require('../config'),
-    express = require('express'),
+    Discord = require("discord.js"),
+    config = require("../config"),
+    express = require("express"),
     log = require("./handlers/logger");
 
-const manager = new Discord.ShardingManager('./src/bot.js', {
-    totalShards: config.shards || 'auto',
+const manager = new Discord.ShardingManager("./src/bot.js", {
+    totalShards: config.shards || "auto",
     token: config.token,
-    mode: 'worker'
+    mode: "worker"
 });
 
-manager.on('shardCreate', shard => {
-    shard.on('message', m => {
-        if (m == 'respawn') {
+manager.on("shardCreate", shard => {
+    shard.on("message", m => {
+        if (m == "respawn") {
             log.log(`[Manager] Shard ${shard.id} has requested a restart.`);
             shard.respawn();
         };
@@ -27,8 +27,8 @@ if (config.port) {
 
     setInterval(updateBotInfo, 5000);
 
-    api.get('/', (_, response) => response.json(botInfo));
-    api.get('/newest', async (_, response) => {
+    api.get("/", (_, response) => response.json(botInfo));
+    api.get("/newest", async (_, response) => {
         const newInfo = await updateBotInfo();
         return response.json(newInfo);
     });
@@ -48,7 +48,7 @@ async function updateBotInfo() {
         loading: client.loading
     })).then(results => results.reduce((info, next, index) => {
         for (const [key, value] of Object.entries(next))
-            if (['guilds', 'cachedUsers', 'users'].includes(key))
+            if (["guilds", "cachedUsers", "users"].includes(key))
                 info[key] = (info[key] || 0) + value;
             info.shards[`${index}`] = next;
         return info;
@@ -57,4 +57,4 @@ async function updateBotInfo() {
     return botInfo = newBotInfo;
 };
 
-manager.spawn(config.shards || 'auto', 5500, -1);
+manager.spawn(config.shards || "auto", 5500, -1);

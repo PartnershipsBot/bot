@@ -13,8 +13,8 @@ module.exports.run = async (message) => {
     exec("git stash push --include-untracked");
     exec("git pull origin main", (error, stdout) => {
         exec("git stash drop");
-    	let res = (error || stdout);
         if (error) return message.reply(error, { code: "fix" });
+    	let res = stdout;
         if (res.includes("Already up to date.")) {
             message.reply("Bot already up to date. No changes since last pull.");
         } else {

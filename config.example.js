@@ -1,7 +1,21 @@
 module.exports = {
-    token: "PUT-YOUR-BOT-TOKEN-HERE",
+    token: "",
     database_uri: "",
     admins: [],
+    loggers: {
+        info: {
+            id: "",
+            token: ""
+        },
+        warn: {
+            id: "",
+            token: ""
+        },
+        error: {
+            id: "",
+            token: ""
+        }
+    },
     color: "5539cc",
     prefix: "p!",
     shards: 1,

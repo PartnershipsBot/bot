@@ -1,7 +1,8 @@
-require('./extendedMessage');
-const Discord = require('discord.js'),
-    config = require('../config'),
-    { prefix } = require('../config'),
+require("./extendedMessage");
+const
+    Discord = require("discord.js"),
+    config = require("../config"),
+    { prefix } = require("../config"),
     commandHandler = require("./handlers/commands"),
     client = new Discord.Client({
         messageCacheLifetime: 30,
@@ -19,15 +20,14 @@ const Discord = require('discord.js'),
     log = require("./handlers/logger"),
     db = require("./database/")();
 
-global.getInvite = require('./constants/').getInvite;
-global.msToTime = require('./constants/').msToTime;
-global.plurify = require('./constants/').plurify;
-global.Discord = Discord;
+global.getInvite = require("./constants/").getInvite;
+global.msToTime = require("./constants/").msToTime;
+global.plurify = require("./constants/").plurify;
 global.client = client;
 global.log = log;
 global.db = db;
 
-let shard = '[Shard N/A]';
+let shard = "[Shard N/A]";
 
 client.once("shardReady", async (shardid, unavailable = new Set()) => {
     shard = `[Shard ${shardid}]`;
@@ -55,7 +55,7 @@ client.once("shardReady", async (shardid, unavailable = new Set()) => {
     client.setInterval(updatePresence, 10000);
 });
 
-client.on('message', async message => {
+client.on("message", async message => {
     if (
         !message.guild || // dms
         message.author.bot ||
@@ -64,6 +64,7 @@ client.on('message', async message => {
 
     const gdb = await db.guild(message.guild.id);
     global.gdb = gdb;
+
     let { prefix } = gdb.get();
     if (!prefix.length) prefix = config.prefix;
 
@@ -74,7 +75,7 @@ client.on('message', async message => {
 async function updatePresence() {
     let guildCount = await client.shard.broadcastEval("this.guilds.cache.size").then(res => res.reduce((prev, val) => prev + val, 0));
 
-    let name = `${prefix}help • ${plurify(guildCount, 'сервер')}`;
+    let name = `${prefix}help • ${plurify(guildCount, "сервер")}`;
     return client.user.setPresence({
         status: "online",
         activity: { type: "WATCHING", name }
@@ -91,4 +92,4 @@ client
     .on("warn", info => log.warn(`${shard} Warning. ${info}`))
     .login(config.token);
 
-process.on('unhandledRejection', log.log);
+process.on("unhandledRejection", log.log);
