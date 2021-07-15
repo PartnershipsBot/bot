@@ -1,17 +1,10 @@
-const { GuildMember, Guild } = require("discord.js");
 const config = require("../../config");
 
 // load other files, and also general information
-module.exports = Object.assign({
-    embedColor: 0xBD4632,
-    hexColor: "BD4632"
-}, require("./time.js"));
+module.exports = Object.assign(
+    require("./time"), require("./resolvers")
+);
 
-/**
- * 
- * @param {GuildMember} member 
- * @returns integer
- */
 module.exports.getPermissionLevel = member => {
     if (config.admins[0] == member.user.id) return 4; // bot owner
     if (config.admins.includes(member.user.id)) return 3; // bot admin
@@ -20,11 +13,6 @@ module.exports.getPermissionLevel = member => {
     return 0; // server member
 };
 
-/**
- * 
- * @param {Guild} guild
- * @returns string
- */
 module.exports.getInvite = async (guild, gdb) => {
 
     if (!guild || !gdb) return false;
@@ -46,12 +34,6 @@ module.exports.getInvite = async (guild, gdb) => {
     return i;
 };
 
-/**
- * 
- * @param {Number} number 
- * @param {String} word 
- * @returns string
- */
 module.exports.plurify = (number, word) => {
     function endsWith(str, suffix) { return String(str).match(suffix+"$")==suffix; };
 

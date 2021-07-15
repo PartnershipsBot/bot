@@ -1,8 +1,3 @@
-/**
- * 
- * @param {Number} ms 
- * @returns string
- */
 module.exports.msToTime = ms => {
     const
         days = Math.floor(ms / 86400000), // 24*60*60*1000
