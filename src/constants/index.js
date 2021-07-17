@@ -13,27 +13,6 @@ module.exports.getPermissionLevel = member => {
     return 0; // server member
 };
 
-module.exports.getInvite = async (guild, gdb) => {
-
-    if (!guild || !gdb) return false;
-
-    let i;
-
-    guild.fetchInvites()
-        .then(c => i = c.find(inv => inv.inviter.id === guild.client.user.id))
-        .catch(console.error());
-
-    if (i) i = i.code;
-    else {
-        let c = await guild.channels.fetch(gdb.get().channel);
-        c.createInvite({
-            maxAge: 0
-        }).then(inv => i = inv.code);
-    };
-
-    return i;
-};
-
 module.exports.plurify = (number, word) => {
     function endsWith(str, suffix) { return String(str).match(suffix+"$")==suffix; };
 
