@@ -7,21 +7,21 @@ module.exports.getChannel = (search, guild) => {
 
 module.exports.getInvite = async (guild, gdb) => {
 
-    if (!guild || !gdb) return false;
+    if (!guild || !gdb) return null;
 
     let i;
 
     guild.fetchInvites()
-        .then(c => i = c.find(inv => inv.inviter.id === guild.client.user.id))
-        .catch(console.error());
+        .then(invites => {
+            invites.find(invite => i = invite.inviter.id === guild.client.user.id);
+        });
 
     if (i) i = i.code;
     else {
-        let c = await guild.channels.fetch(gdb.get().channel);
-        c.createInvite({
-            maxAge: 0
-        }).then(inv => i = inv.code);
+        const channel = await guild.channels.resolve(gdb.get().channel);
+        return channel.createInvite({ maxAge: 0 })
+            .then(inv => {
+                return inv.code;
+            });
     };
-
-    return i;
 };
