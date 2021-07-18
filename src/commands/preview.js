@@ -10,8 +10,13 @@ module.exports = {
 const { MessageEmbed } = require("discord.js"), { color } = require("../../config"), { getInvite } = require("../constants/");
 
 module.exports.run = async (message, args, gdb) => {
-    const guild = client.guilds.cache.get(gdb.get().guildid),
-        invite = await getInvite(guild, gdb);
+    const
+        guild = client.guilds.cache.get(gdb.get().guildid),
+        invite = await getInvite(guild, gdb),
+        memberCount = guild.members.cache.filter(member => !member.user.bot).size,
+        owner = guild.owner.user.tag.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203)),
+        ownerID = guild.owner.user.id;
+
     let pv = new MessageEmbed()
         .setTitle(guild.name)
         .setThumbnail(guild.iconURL({ dynamic: true, size: 64 }))
@@ -22,16 +27,16 @@ module.exports.run = async (message, args, gdb) => {
         .addFields([
             {
                 name: "Участники",
-                value: guild.members.cache.filter(member => !member.user.bot).size,
+                value: memberCount,
                 inline: true
             },
             {
                 name: "Приглашение",
-                value: `discord.gg/${invite}`
+                value: `[discord.gg/${invite}](https://discord.gg/${invite})`
             },
             {
                 name: "Владелец",
-                value: `${guild.owner.user.tag} (\`${guild.owner.user.id}\`)`
+                value: `\`${owner}\` (\`${ownerID}\`)`
             }
         ]);
 
