@@ -11,7 +11,7 @@
     "url": "https://github.com/PartnershipsBot/bot.git"
   },
   "dependencies": {
-    "discord.js": "^12.5.1",
+    "discord.js": "^12.5.3",
     "mongoose": "^5.11.19",
     "express": "^4.17.1",
     "chalk": "^4.1.1",

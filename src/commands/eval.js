@@ -15,11 +15,11 @@ module.exports.run = async (message, args) => {
 	  	let evaled = await eval(content);
 	  	if (typeof evaled !== "string") evaled = require("util").inspect(evaled);
 	  
-	  	message.channel.send(`🆗 Evaluated successfully.\n\`\`\`js\n${evaled}\`\`\``);
+	  	message.channel.send(evaled, { code: "js", split: true });
 	} catch(e) {
 	  	let err;
 	  	if (typeof e == "string") err = e.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203));
 	  	else err = e;
-	  	message.channel.send(`🆘 JavaScript failed.\n\`\`\`fix\n${err}\`\`\``);
+	  	message.channel.send(evaled, { code: "fix", split: true });
 	};
 };
