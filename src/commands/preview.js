@@ -28,6 +28,10 @@ module.exports.run = async (message, args, gdb) => {
             {
                 name: "Приглашение",
                 value: `discord.gg/${invite}`
+            },
+            {
+                name: "Владелец",
+                value: `${guild.owner.user.tag} (\`${guild.owner.user.id}\`)`
             }
         ]);
 
