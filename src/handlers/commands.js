@@ -24,7 +24,10 @@ module.exports = async (message, prefix, gdb, db) => {
         const args = (content.match(/"[^"]+"|[^ ]+/g) || []).map(arg => /*arg.startsWith("\"") && arg.endsWith("\"") ? arg.slice(1).slice(0, -1) : */arg);
         if (!commandFile.checkArgs(args)) return message.channel.send(`❌ Неверные аргументы. Для помощи, напишите \`${prefix}help ${commandName}\`.`);
 
-        return commandFile.run(message, args, gdb, { prefix, permissionLevel, db });
+        return commandFile.run(message, args, gdb, { prefix, permissionLevel, db })
+            .catch(e => {
+                log.error(`An error occured while executing ${commandFile.name}: ${e.stack}`);
+            });
     };
 
     await processCommand();
