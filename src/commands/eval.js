@@ -20,6 +20,6 @@ module.exports.run = async (message, args) => {
 	  	let err;
 	  	if (typeof e == "string") err = e.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203));
 	  	else err = e;
-	  	message.channel.send(evaled, { code: "fix", split: true });
+	  	message.channel.send(err, { code: "fix", split: true });
 	};
 };
