@@ -2,7 +2,7 @@ module.exports = {
     description: "Настройка канала отправки партнёрств.",
     usage: {
         "<set|reset>": "Подкоманда; `set` - установить, `reset` - сбросить.",
-        "<#канал>": "Упоминание канала, если подкоманда `set`."
+        "<#канал|ID>": "Упоминание канала, если подкоманда `set`."
     },
     examples: {},
     aliases: ["ch"],
@@ -25,10 +25,10 @@ module.exports.run = async (message, args, gdb) => {
             };
             break;
         case "set":
-            let c = message.mentions.channels[0];
-            if (!c) return message.reply("❌ Не удалось найти указанный канал.");
+            let c = message.mentions.channels[0].id || args[1];
 
             const guildChannel = getChannel(c.id, message.guild);
+            if (!guildChannel) return message.reply("❌ Не удалось найти указанный канал.");
 
             try {
                 await gdb.set("channel", guildChannel.id);
