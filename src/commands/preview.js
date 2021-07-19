@@ -39,7 +39,7 @@ module.exports.run = async (message, args, gdb) => {
                 value: `\`${owner}\` (\`${ownerID}\`)`
             }
         ]);
-    if (guild.banner) pv.setImage(guild.bannerURL({ format: "png", size: 512 }));
+    if (guild.banner) pv.setImage(guild.bannerURL({ format: "png", size: 256 }));
 
     message.reply(pv);
 };
