@@ -17,12 +17,8 @@ module.exports.run = async (message, args, gdb) => {
 
     switch (mode) {
         case "reset":
-            try {
-                await gdb.set("channel", "");
-                await message.react("✅");
-            } catch (err) {
-                message.reply(`❌ Произошла неизвестная ошибка. Пожалуйста, проинформируйте создателя бота. Лог ошибки:\n\`\`\`fix\n${err.stack}\n\`\`\``);
-            };
+            await gdb.set("channel", "");
+            await message.react("✅");
             break;
         case "set":
             let c = message.mentions.channels.first() ? message.mentions.channels.first().id : args[1];
@@ -30,13 +26,8 @@ module.exports.run = async (message, args, gdb) => {
 
             if (!guildChannel) return message.reply("❌ Не удалось найти указанный канал.");
 
-            try {
-                await gdb.set("channel", guildChannel.id);
-                await message.react("✅");
-                await message.reply(`✅ Канал отправки партнёрств был успешно установлен (<#${guildChannel.id}>)`);
-            } catch (err) {
-                message.reply(`❌ Произошла неизвестная ошибка. Пожалуйста, проинформируйте создателя бота. Лог ошибки:\n\`\`\`fix\n${err.stack}\n\`\`\``);
-            };
+            await gdb.set("channel", guildChannel.id);
+            await message.reply(`✅ Канал отправки партнёрств был успешно установлен (<#${guildChannel.id}>)`);
             break;
     };
 };
