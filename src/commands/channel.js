@@ -26,7 +26,7 @@ module.exports.run = async (message, args, gdb) => {
             break;
         case "set":
             let c = message.mentions.channels[0];
-            if (!с) return message.reply("❌ Не удалось найти указанный канал.");
+            if (!c) return message.reply("❌ Не удалось найти указанный канал.");
 
             const guildChannel = getChannel(c.id, message.guild);
 
