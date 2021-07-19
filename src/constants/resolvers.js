@@ -1,9 +1,3 @@
-module.exports.getChannel = (search, guild) => {
-    const channels = guild.channels.cache.filter(ch => ch.type == "text" && ch.viewable);
-    return false ||
-        channels.get((search.match(idResolver) || ["0"])[0]);
-};
-
 module.exports.getInvite = async (guild, gdb) => {
 
     if (!guild || !gdb) return null;
