@@ -15,26 +15,16 @@ module.exports.run = async (message, args, gdb) => {
 
     switch (mode) {
         case "reset":
-            try {
-                await gdb.set("color", "");
-                await message.react("✅");
-            } catch (err) {
-                log.err(err);
-                message.reply("❌ Произошла неизвестная ошибка. Пожалуйста, проинформируйте создателя бота.");
-            };
+            await gdb.set("color", "");
+            await message.react("✅");
             break;
         case "set":
             const color = args[1].trim().match(/^#([0-9A-F]{3}){1,2}$/i)[0];
 
             if (!color) return message.react("❌");
 
-            try {
-                await gdb.set("color", color);
-                await message.react("✅");
-            } catch (err) {
-                log.err(err);
-                message.reply("❌ Произошла неизвестная ошибка. Пожалуйста, проинформируйте создателя бота.");
-            };
+            await gdb.set("color", color);
+            await message.react("✅");
             break;
     };
 };

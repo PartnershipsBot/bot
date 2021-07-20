@@ -15,26 +15,18 @@ module.exports.run = async (message, args, gdb) => {
 
     switch (mode) {
         case "reset":
-            try {
-                await gdb.set("description", "");
-                await message.react("✅");
-            } catch (err) {
-                message.reply(`❌ Произошла неизвестная ошибка. Пожалуйста, проинформируйте создателя бота. Лог ошибки:\n\`\`\`fix\n${err.stack}\n\`\`\``);
-            };
+            await gdb.set("description", "");
+            await message.react("✅");
             break;
         case "set":
             let desc = args.join(" ").slice(3).trim();
 
             if (desc.length > 2048) return async function () {
-                message.reply("❌ Описание сервера не должно быть длиннее чем 2048 символов.");
+                message.reply("❌ Описание сервера не должно быть длиннее за 2048 символов.");
             };
 
-            try {
-                await gdb.set("description", desc);
-                await message.react("✅");
-            } catch (err) {
-                message.reply(`❌ Произошла неизвестная ошибка. Пожалуйста, проинформируйте создателя бота. Лог ошибки:\n\`\`\`fix\n${err.stack}\n\`\`\``);
-            };
+            await gdb.set("description", desc);
+            await message.react("✅");
             break;
     };
 };

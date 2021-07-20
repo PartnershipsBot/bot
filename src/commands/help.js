@@ -34,7 +34,7 @@ module.exports.run = async (message, args, gdb, { prefix, permissionLevel }) => 
                 }
             ]
         }
-    }).catch(err => message.reply(`❌ Произошла неизвестная ошибка. Пожалуйста, проинформируйте создателя бота. Лог ошибки:\n\`\`\`fix\n${err.stack}\n\`\`\``));
+    });
     else {
         args = args[0].toLowerCase();
         let commandFile = commands.find(({ command, aliases }) => args == command || aliases.includes(args));
@@ -72,9 +72,6 @@ module.exports.run = async (message, args, gdb, { prefix, permissionLevel }) => 
                     }
                 ].filter(f => f.value)
             }
-        }).catch(err => {
-            log.error(err);
-            message.reply("❌ Произошла неизвестная ошибка. Пожалуйста, проинформируйте создателя бота.");
         });
     };
 };
