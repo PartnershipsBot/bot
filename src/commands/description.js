@@ -21,9 +21,7 @@ module.exports.run = async (message, args, gdb) => {
         case "set":
             let desc = args.join(" ").slice(3).trim();
 
-            if (desc.length > 2048) return async function () {
-                message.reply("❌ Описание сервера не должно быть длиннее за 2048 символов.");
-            };
+            if (desc.length > 2048) return message.reply("❌ Описание сервера не должно быть длиннее за 2048 символов.");
 
             await gdb.set("description", desc);
             await message.react("✅");
