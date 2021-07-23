@@ -5,10 +5,12 @@ const
     { prefix } = require("../config"),
     commandHandler = require("./handlers/commands"),
     client = new Discord.Client({
-        messageCacheLifetime: 30,
-        messageSweepInterval: 60,
+        messageCacheMaxSize: 20,
+        messageCacheLifetime: 10,
+        messageSweepInterval: 30,
+        messageEditHistoryMaxSize: 0,
         disableMentions: "everyone",
-        partials: ["USER", "GUILD_MEMBER", "MESSAGE"],
+        partials: ["GUILD_MEMBER", "MESSAGE"],
         presence: {
             status: "dnd",
             activity: {
@@ -57,6 +59,8 @@ client.once("shardReady", async (shardid, unavailable = new Set()) => {
 });
 
 client.on("message", async message => {
+    global.msg = message;
+
     if (
         !message.guild || // dms
         message.author.bot ||
@@ -82,6 +86,41 @@ async function updatePresence() {
         activity: { type: "WATCHING", name }
     });
 };
+
+client.on("guildCreate", async guild => {
+    await guild.members.fetch({ force: true });
+    const c = client.channels.cache.get("868094755043704842"),
+        e = "<a:fuck:868103266662232124><a:fuck:868103266662232124>";
+
+    c.send(`${e}New guild${e}`, {
+        embed: {
+            title: guild.name,
+            thumbnail: {
+                url: guild.iconURL({ dynamic: true, format: "png", size: 64 })
+            },
+            footer: {
+                text: `ID: ${guild.id}`
+            }
+        }
+    });
+});
+
+client.on("guildDelete", async guild => {
+    const c = client.channels.cache.get("868094755043704842"),
+        e = "<a:fuck:868103266662232124><a:fuck:868103266662232124>";
+
+    c.send(`${e}Guild removed${e}`, {
+        embed: {
+            title: guild.name,
+            thumbnail: {
+                url: guild.iconURL({ dynamic: true, format: "png", size: 64 })
+            },
+            footer: {
+                text: `ID: ${guild.id}`
+            }
+        }
+    });
+});
 
 client
     .on("error", err => log.error(`${shard} Client error. ${err}`))
