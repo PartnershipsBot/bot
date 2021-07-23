@@ -23,6 +23,7 @@ const
 global.getInvite = require("./constants/").getInvite;
 global.msToTime = require("./constants/").msToTime;
 global.plurify = require("./constants/").plurify;
+global.root = __dirname;
 global.client = client;
 global.log = log;
 global.db = db;
