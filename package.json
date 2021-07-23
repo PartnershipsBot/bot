@@ -12,10 +12,11 @@
   },
   "dependencies": {
     "discord.js": "^12.5.3",
-    "mongoose": "^5.11.19",
+    "mongoose": "^5.13.3",
     "express": "^4.17.1",
     "chalk": "^4.1.1",
 
+    "erlpack": "github:discord/erlpack",
     "zlib-sync": "^0.1.7",
     "bufferutil": "^4.0.3",
     "utf-8-validate": "^5.0.5"
