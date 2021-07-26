@@ -62,7 +62,7 @@ client.on("message", async message => {
     global.msg = message;
 
     if (
-        !message.guild || // dms
+        !message.guild ||
         message.author.bot ||
         message.type !== "DEFAULT"
     ) return;

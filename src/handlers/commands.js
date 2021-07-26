@@ -27,7 +27,7 @@ module.exports = async (message, prefix, gdb, db) => {
         return commandFile.run(message, args, gdb, { prefix, permissionLevel, db })
             .catch(e => {
                 log.error(`An error occured while executing ${commandFile.name}: ${e.stack}`);
-                message.reply("❌ Произошла ошибка при исполнении команды. Сообщите разработчика.");
+                message.reply("❌ Произошла ошибка при исполнении команды. Сообщите разработчику.");
             });
     };
 
