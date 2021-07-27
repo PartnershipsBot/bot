@@ -79,7 +79,7 @@ module.exports.run = async (message) => {
                     name: "🌐 Ссылки",
                     value: [
                         `**Пригласи меня:** [тык](https://discord.com/api/oauth2/authorize?client_id=${client.user.id}&permissions=8&scope=bot%20applications.commands)`,
-                        "**Сервер поддержки**: https://discord.gg/PrJthKRbvz"
+                        "**Сервер поддержки**: [discord.gg/sof](https://discord.gg/sof)"
                     ].join("\n"),
                     inline: false
                 }
