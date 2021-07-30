@@ -10,8 +10,6 @@ module.exports = {
     checkArgs: (args) => (args[0] == "reset" && !args[1]) || args[0] == "set" && !args[2]
 };
 
-const { getChannel } = require("../constants/");
-
 module.exports.run = async (message, args, gdb) => {
     let mode = args[0];
 

@@ -19,7 +19,7 @@ module.exports.run = async (message, args, gdb) => {
 
     let pv = new MessageEmbed()
         .setTitle(guild.name)
-        .setThumbnail(guild.iconURL({ dynamic: true, size: 64 }))
+        .setThumbnail(guild.iconURL({ dynamic: true, size: 64 }) || "https://cdn.discordapp.com/embed/avatars/0.png")
         .setDescription(gdb.get().description)
         .setFooter(`ID: ${gdb.get().guildid}`)
         .setColor(gdb.get().color || color)

@@ -29,11 +29,11 @@ module.exports.run = async (message) => {
 
         const { heapUsed, rss } = process.memoryUsage();
 
-        memory = heapUsed / (1048576); // 1024*1024
+        memory = heapUsed / (1048576); // 1024 * 1024
         if (memory >= 1024) memoryUsage = (memory / 1024).toFixed(2) + "GB";
         else memoryUsage = memory.toFixed(2) + "MB";
 
-        memoryGlobal = rss / (1048576); // 1024*1024
+        memoryGlobal = rss / (1048576); // 1024 * 1024
         if (memoryGlobal >= 1024) memoryUsageGlobal = (memoryGlobal / 1024).toFixed(2) + "GB";
         else memoryUsageGlobal = memoryGlobal.toFixed(2) + "MB";
     };
@@ -78,7 +78,7 @@ module.exports.run = async (message) => {
                 {
                     name: "🌐 Ссылки",
                     value: [
-                        `**Пригласи меня:** [тык](https://discord.com/api/oauth2/authorize?client_id=${client.user.id}&permissions=8&scope=bot%20applications.commands)`,
+                        `**Пригласи меня:** [тык](${client.generateInvite({ permissions: 8 })})`,
                         "**Сервер поддержки**: [discord.gg/sof](https://discord.gg/sof)"
                     ].join("\n"),
                     inline: false
