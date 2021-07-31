@@ -22,6 +22,7 @@ const
     log = require("./handlers/logger"),
     db = require("./database/")();
 
+global.sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 global.getInvite = require("./constants/").getInvite;
 global.msToTime = require("./constants/").msToTime;
 global.plurify = require("./constants/").plurify;

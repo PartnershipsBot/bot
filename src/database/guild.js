@@ -6,6 +6,7 @@ const guildObject = {
     guildid: "",
     channel: "",
     description: "",
+    nextBump: 0,
     prefix: ""
 };
 
