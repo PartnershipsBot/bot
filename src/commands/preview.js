@@ -7,15 +7,18 @@ module.exports = {
     checkArgs: (args) => !args.length
 };
 
-const { MessageEmbed } = require("discord.js"), { color } = require("../../config"), { getInvite } = require("../constants/");
+const { MessageEmbed, Message } = require("discord.js"), { color, prefix } = require("../../config"), { getInvite } = require("../constants/");
 
-module.exports.run = async (message, args, gdb) => {
+module.exports.run = async (message = new Message, args, gdb) => {
     const
-        guild = client.guilds.cache.get(gdb.get().guildid),
+        pref = gdb.get().prefix || prefix,
+        guild = message.guild,
         invite = await getInvite(guild, gdb),
         memberCount = guild.members.cache.filter(member => !member.user.bot).size,
         owner = guild.owner.user.tag.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203)),
         ownerID = guild.owner.user.id;
+
+    if (!invite) return message.reply(`❌ Не удалось получить приглашение. Вы устанавливали канал используя команду \`${pref}channel set\`?`);
 
     let pv = new MessageEmbed()
         .setTitle(guild.name)
