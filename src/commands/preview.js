@@ -42,7 +42,10 @@ module.exports.run = async (message = new Message, args, gdb) => {
                 value: `\`${owner}\` (\`${ownerID}\`)`
             }
         ]);
-    if (guild.banner) pv.setImage(guild.bannerURL({ format: "png", size: 512 }));
+    if (guild.banner) {
+        pv.setImage(guild.bannerURL({ format: "png", size: 512 }));
+        pv.setThumbnail(guild.iconURL({ dynamic: true, size: 128 }) || "https://cdn.discordapp.com/embed/avatars/0.png");
+    };
 
     message.reply(pv);
 };
