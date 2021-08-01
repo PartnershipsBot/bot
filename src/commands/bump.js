@@ -10,9 +10,7 @@ module.exports = {
 let config = require("../../config"), { getInvite } = require("../constants/"), { MessageEmbed, Guild, Message } = require("discord.js");
 
 module.exports.run = async (message = new Message, args, gdb) => {
-    if (Date.now() <= gdb.get().nextBump) return () => {
-        message.reply(`⏲️ Подождите ещё \`${msToTime(gdb.get().nextBump - Date.now())}\``);
-    };
+    if (Date.now() <= gdb.get().nextBump) return message.reply(`⏲️ Подождите ещё \`${msToTime(gdb.get().nextBump - Date.now())}\``);
 
     const m = await message.reply({
         embed: {
