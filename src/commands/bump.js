@@ -87,6 +87,7 @@ module.exports.run = async (message = new Message, args, gdb) => {
         completed++;
     }));
     clearInterval(messageInterval);
+    gdb.set("nextBump", Date.now() + 10800000); // 3h cd
     return m.edit({
         embed: {
             title: "Рассылка окончена!",
