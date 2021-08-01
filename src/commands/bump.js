@@ -22,13 +22,8 @@ module.exports.run = async (message = new Message, args, gdb) => {
         }
     });
 
-    let
-        g = message.guild,
-        cID = gdb.get().channel,
-        c = g.channels.cache.get(cID);
-    if (!c) return;
-
     const
+        g = message.guild,
         pref = gdb.get().prefix || config.prefix,
         invite = await getInvite(g, gdb),
         memberCount = g.members.cache.filter(member => !member.user.bot).size,
