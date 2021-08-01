@@ -32,7 +32,7 @@ module.exports.run = async (message = new Message, args, gdb) => {
 
     const
         pref = gdb.get().prefix || config.prefix,
-        invite = await getInvite(guild, gdb),
+        invite = await getInvite(g, gdb),
         memberCount = g.members.cache.filter(member => !member.user.bot).size,
         owner = g.owner.user.tag.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203)),
         ownerID = g.owner.user.id;
