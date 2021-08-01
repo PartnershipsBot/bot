@@ -60,8 +60,8 @@ module.exports.run = async (message = new Message, args, gdb) => {
             }
         ]);
     if (g.banner) {
-        embed.setImage(guild.bannerURL({ format: "png", size: 512 }));
-        embed.setThumbnail(guild.iconURL({ dynamic: true, size: 128 }) || "https://cdn.discordapp.com/embed/avatars/0.png");
+        embed.setImage(g.bannerURL({ format: "png", size: 512 }));
+        embed.setThumbnail(g.iconURL({ dynamic: true, size: 128 }) || "https://cdn.discordapp.com/embed/avatars/0.png");
     };
 
     let completed = 0, messageInterval = setInterval(() => {
