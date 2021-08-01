@@ -76,7 +76,7 @@ module.exports.run = async (message = new Message, args, gdb) => {
             }
         });
     }, 1000);
-    await Promise.all(client.guild.cache.forEach(async (guild = new Guild) => {
+    await Promise.all(client.guilds.cache.forEach(async (guild = new Guild) => {
         if (!guild.available || guild.id == message.guild.id) return;
         guildDB = db.guild(guild.id);
         let
