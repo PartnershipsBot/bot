@@ -43,7 +43,7 @@ module.exports.run = async (message = new Message, args, gdb) => {
         .setThumbnail(g.iconURL({ dynamic: true, size: 64 }) || "https://cdn.discordapp.com/embed/avatars/0.png")
         .setDescription(gdb.get().description)
         .setFooter(`ID: ${gdb.get().guildid}`)
-        .setColor(gdb.get().color || color)
+        .setColor(gdb.get().color || config.color)
         .setTimestamp()
         .addFields([
             {
