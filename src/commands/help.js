@@ -1,10 +1,10 @@
 module.exports = {
-    description: "Получить помощь в использовании бота.",
+    description: "Получить помощь в использовании бота / список команд.",
     usage: {
         "[запрос]": "Запрос для поиска. Например, команда."
     },
     examples: {
-        "help": "Получить помощь по команде... Подождите, Вы это уже нашли"
+        "help": "Получить помощь по команде... Подождите, Вы это уже нашли :D"
     },
     aliases: [ "commands" ],
     permissionRequired: 0, // 0 All, 1 Admins, 2 Server Owner, 3 Bot Admin, 4 Bot Owner
@@ -18,7 +18,8 @@ module.exports.run = async (message, args, gdb, { prefix, permissionLevel }) => 
         embed: {
             title: `Помощь ${client.user.username}`,
             description: [
-                `• Если Вам нужна помощь по команде, используйте \`${prefix}help <команда>\`.`
+                `• Если Вам нужна помощь по команде, используйте \`${prefix}help <команда>\`.`,
+                "• Сервер поддержки: (discord.gg/sof)[https://discord.gg/sof]"
             ].join("\n"),
             color: config.color,
             timestamp: Date.now(),

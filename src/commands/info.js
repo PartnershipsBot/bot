@@ -6,8 +6,9 @@ module.exports = {
     permissionRequired: 0, // 0 All, 1 Admins, 2 Server Owner, 3 Bot Admin, 4 Bot Owner
     checkArgs: (args) => !args.length
 };
-  
-const os = require("os"),
+
+const
+    os = require("os"),
     platform = `${os.type()} (${os.release()})`,
     djsversion = require("../../package.json").dependencies["discord.js"],
     config = require("../../config");

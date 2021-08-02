@@ -14,7 +14,7 @@ module.exports.run = async (message, args, gdb) => {
             .then(collection => collection.first().content == "да" ? resolve(true) : resolve(false))
             .catch(() => resolve(false));
     });
-    if (!confirmation) return message.channel.send("✴️ Сброс всех настроек был отменён.");
+    if (!confirmation) return message.channel.send("✴️ Сброс настроек был отменён.");
   
     gdb.reset();
     
