@@ -5,7 +5,7 @@ module.exports = {
         "<HEX-код>": "HEX-код цвета. (`#ABC`|`#AABBCC`)"
     },
     examples: {},
-    aliases: ["desc"],
+    aliases: [],
     permissionRequired: 1, // 0 All, 1 Admins, 2 Server Owner, 3 Bot Admin, 4 Bot Owner
     checkArgs: (args) => (args[0] == "reset" && !args[1]) || (args[0] == "set" && args[1])
 };
