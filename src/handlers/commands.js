@@ -26,11 +26,12 @@ module.exports = async (message, prefix, gdb, db) => {
 
         return commandFile.run(message, args, gdb, { prefix, permissionLevel, db })
             .catch(async (e) => {
+                log.error(`An error occured while executing ${commandName}: ${e.stack}`);
+
                 let additionalInfo;
-                if (e.message.startsWith("DiscordAPIError: Missing"))
+                if (e.message.split(" ")[0] === "DiscordAPIError" && e.message.split(" ")[1] === "Missing")
                     additionalInfo = "Изучив логи, удалось узнать, что Боту не хватило прав для удачного выполнения команды.";
 
-                log.error(`An error occured while executing ${commandName}: ${e.stack}`);
                 const m = await message.reply("❌ Произошла ошибка при исполнении команды. Сообщите разработчику.");
                 if (additionalInfo) m.edit(m.content + "\n" + additionalInfo);
             });
