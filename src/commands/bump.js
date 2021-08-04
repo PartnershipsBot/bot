@@ -31,7 +31,7 @@ module.exports.run = async (message = new Message, args, gdb) => {
         owner = g.owner.user.tag.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203)),
         ownerID = g.owner.user.id;
     
-    if (!description.length) return m.edit(`"❌ Для начала опишите свой сервер используя команду \`${pref}description set\``);
+    if (!description.length) return m.edit(`❌ Для начала опишите свой сервер используя команду \`${pref}description set\``);
     if (!invite) return m.edit(`❌ Не удалось получить приглашение. Вы устанавливали канал используя команду \`${pref}channel set\`?`);
 
     let embed = new MessageEmbed()
