@@ -24,17 +24,20 @@ module.exports.run = async (message = new Message, args, gdb) => {
 
     const
         g = message.guild,
+        description = gdb.get().description,
         pref = gdb.get().prefix || config.prefix,
         invite = await getInvite(g, gdb),
         memberCount = g.members.cache.filter(member => !member.user.bot).size,
         owner = g.owner.user.tag.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203)),
         ownerID = g.owner.user.id;
+    
+    if (!description.length) return m.edit(`"❌ Для начала опишите свой сервер используя команду \`${pref}description set\``);
     if (!invite) return m.edit(`❌ Не удалось получить приглашение. Вы устанавливали канал используя команду \`${pref}channel set\`?`);
 
     let embed = new MessageEmbed()
         .setTitle(g.name)
         .setThumbnail(g.iconURL({ dynamic: true, size: 64 }) || "https://cdn.discordapp.com/embed/avatars/0.png")
-        .setDescription(gdb.get().description)
+        .setDescription(description)
         .setFooter(`ID: ${gdb.get().guildid}`)
         .setColor(gdb.get().color || config.color)
         .setTimestamp()
