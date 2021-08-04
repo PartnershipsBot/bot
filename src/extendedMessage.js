@@ -6,13 +6,13 @@ class ExtAPIMessage extends APIMessage {
         super.resolveData();
         const allowedMentions = this.options.allowedMentions || this.target.client.options.allowedMentions || {};
 
-        if (allowedMentions.repliedUser !== undefined) {
-            if (this.data.allowed_mentions === undefined) this.data.allowed_mentions = {};
+        if (allowedMentions.repliedUser) {
+            if (!this.data.allowed_mentions) this.data.allowed_mentions = {};
             Object.assign(this.data.allowed_mentions, { replied_user: allowedMentions.repliedUser });
         };
 
-        if (this.options.replyTo !== undefined) {
-            Object.assign(this.data, { message_reference: { message_id: this.options.replyTo.id } });
+        if (this.options.replyTo) {
+            Object.assign(this.data, { message_reference: { message_id: this.options.replyTo.id }});
         };
 
         return this;
