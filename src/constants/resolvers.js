@@ -3,7 +3,7 @@ module.exports.getInvite = async (guild, gdb) => {
     if (!guild || !gdb) return;
 
     const channel = await guild.channels.resolve(gdb.get().channel);
-    if (!channel) return;
+    if (!channel) return null;
 
     let i;
 

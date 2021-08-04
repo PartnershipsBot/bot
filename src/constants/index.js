@@ -14,7 +14,9 @@ module.exports.getPermissionLevel = member => {
 };
 
 module.exports.plurify = (number, word) => {
-    function endsWith(str, suffix) { return String(str).match(suffix+"$")==suffix; };
+    const endsWith = (str, suffix) => {
+        return String(str).match(suffix + "$") == suffix;
+    };
 
     let returning;
     if (
@@ -31,7 +33,7 @@ module.exports.plurify = (number, word) => {
         endsWith(number, 3) ||
         endsWith(number, 4)
     ) returning = `${number} ${word}а`;
-    else return false;
+    else return null;
 
     return returning;
 };
