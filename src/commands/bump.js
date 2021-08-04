@@ -69,6 +69,7 @@ module.exports.run = async (message = new Message, args, gdb) => {
             }
         });
     }, 1000);
+
     await Promise.all(client.guilds.cache.map(async (guild = new Guild) => {
         if (!guild.available || guild.id == message.guild.id) return;
         guildDB = await db.guild(guild.id);

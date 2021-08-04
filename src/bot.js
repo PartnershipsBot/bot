@@ -9,7 +9,7 @@ const
         messageCacheLifetime: 10,
         messageSweepInterval: 30,
         messageEditHistoryMaxSize: 0,
-        disableMentions: "everyone",
+        disableMentions: "all",
         partials: ["GUILD_MEMBER", "MESSAGE"],
         presence: {
             status: "dnd",
@@ -46,10 +46,7 @@ client.once("shardReady", async (shardid, unavailable = new Set()) => {
     log.log(`${shard} All ${disabledGuilds.size} guilds have been cached. [${Date.now() - guildCachingStart}ms]`);
 
     let userCachingStart = Date.now();
-
-    for (const [id, guild] of client.guilds.cache) {
-        await guild.members.fetch({ force: true });
-    };
+    await Promise.all(client.guilds.cache.map(guild => guild.members.fetch()));
     log.log(`${shard} All ${client.users.cache.size} users have been cached. [${Date.now() - userCachingStart}ms]`);
 
     disabledGuilds = false;
