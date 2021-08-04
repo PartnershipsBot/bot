@@ -25,12 +25,16 @@ module.exports = async (message, prefix, gdb, db) => {
         if (!commandFile.checkArgs(args)) return message.channel.send(`❌ Неверные аргументы. Для помощи, напишите \`${prefix}help ${commandName}\`.`);
 
         return commandFile.run(message, args, gdb, { prefix, permissionLevel, db })
-            .catch(e => {
+            .catch(async (e) => {
+                let additionalInfo;
+                if (e.message.startsWith("DiscordAPIError: Missing Access"))
+                    additionalInfo = "Изучив логи, удалось узнать, что Боту не хватило прав для удачного выполнения команды.";
+
                 log.error(`An error occured while executing ${commandName}: ${e.stack}`);
-                return message.reply("❌ Произошла ошибка при исполнении команды. Сообщите разработчику.");
+                const m = await message.reply("❌ Произошла ошибка при исполнении команды. Сообщите разработчику.");
+                if (additionalInfo) m.edit(m.content + "\n" + additionalInfo);
             });
     };
-
     await processCommand();
 };
 
