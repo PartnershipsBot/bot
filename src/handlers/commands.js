@@ -27,7 +27,7 @@ module.exports = async (message, prefix, gdb, db) => {
         return commandFile.run(message, args, gdb, { prefix, permissionLevel, db })
             .catch(async (e) => {
                 let additionalInfo;
-                if (e.message.startsWith("DiscordAPIError: Missing Access"))
+                if (e.message.startsWith("DiscordAPIError: Missing"))
                     additionalInfo = "Изучив логи, удалось узнать, что Боту не хватило прав для удачного выполнения команды.";
 
                 log.error(`An error occured while executing ${commandName}: ${e.stack}`);
