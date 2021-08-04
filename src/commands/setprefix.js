@@ -8,13 +8,13 @@ module.exports = {
     },
     aliases: [ "prefix" ],
     permissionRequired: 1, // 0 All, 1 Admins, 2 Server Owner, 3 Bot Admin, 4 Bot Owner
-    checkArgs: () => true
+    checkArgs: (args) => !!args.length
 };
   
 const config = require("../../config");
   
 module.exports.run = async (message, args, gdb) => {
-    const content = args.join(" ") || "";
+    const content = args.join(" ").replace("\"", "") || "";
 
     gdb.set("prefix", content);
 
