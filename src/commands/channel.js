@@ -23,6 +23,8 @@ module.exports.run = async (message, args, gdb) => {
             const guildChannel = message.guild.channels.cache.get(c);
 
             if (!guildChannel) return message.reply("❌ Не удалось найти указанный канал на этом сервере.");
+            if (!guildChannel.permissionsFor(message.guild.me).has("SEND_MESSAGES")) return message.reply("❌ У меня нет прав на отправление сообщений в указанном канале.");
+            if (!guildChannel.permissionsFor(message.guild.me).has("INSTANT_INVITE")) return message.reply("❌ У меня нет прав на создание приглашений в указанном канале.");
 
             await gdb.set("channel", guildChannel.id);
             await message.reply(`✅ Канал отправки партнёрств был успешно установлен (<#${guildChannel.id}>)`);

@@ -28,11 +28,15 @@ module.exports.run = async (message = new Message, args, gdb) => {
         pref = gdb.get().prefix || config.prefix,
         invite = await getInvite(g, gdb),
         memberCount = g.members.cache.filter(member => !member.user.bot).size,
+        channel = g.channels.cache.get(gdb.get().channel),
         owner = g.owner.user.tag.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203)),
         ownerID = g.owner.user.id;
     
     if (!description.length) return m.edit(`❌ Для начала опишите свой сервер используя команду \`${pref}description set\``);
-    if (!invite) return m.edit(`❌ Не удалось получить приглашение. Вы устанавливали канал используя команду \`${pref}channel set\`?`);
+    if (!channel) return m.edit(`❌ Не удалось найти канал рассылки партнёрств на этом сервере. Вы указывали его используя команду \`${pref}channel set\`?`);
+    if (!channel.permissionsFor(message.guild.me).has("SEND_MESSAGES")) return m.edit("❌ У меня нет прав на отправление сообщений в указанном канале.");
+    if (!channel.permissionsFor(message.guild.me).has("INSTANT_INVITE")) return m.edit("❌ У меня нет прав на создание приглашений в указанном канале.");
+    if (!invite) return m.edit(`❌ Не удалось получить приглашение. Вы указывали канал используя команду \`${pref}channel set\`?`);
 
     let embed = new MessageEmbed()
         .setTitle(g.name)
@@ -80,6 +84,7 @@ module.exports.run = async (message = new Message, args, gdb) => {
             cID = guildDB.get().channel,
             channel = guild.channels.cache.get(cID);
         if (!channel) return;
+        if (!channel.permissionsFor(guild.me).has("SEND_MESSAGES")) return;
         channel.send(embed);
         completed++;
     }));
