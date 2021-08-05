@@ -79,7 +79,7 @@ module.exports.run = async (message) => {
                 {
                     name: "🌐 Ссылки",
                     value: [
-                        `**Пригласи меня:** [тык](${await client.generateInvite({ permissions: 8 })})`,
+                        `**Пригласи меня:** [тык](${await client.generateInvite({ permissions: 19529 })})`,
                         "**Сервер поддержки**: [discord.gg/sof](https://discord.gg/sof)"
                     ].join("\n"),
                     inline: false
