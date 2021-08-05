@@ -22,7 +22,7 @@ module.exports.run = async (message, args, gdb) => {
             let c = message.mentions.channels.first() ? message.mentions.channels.first().id : args[1];
             const guildChannel = message.guild.channels.cache.get(c);
 
-            if (!guildChannel) return message.reply("❌ Не удалось найти указанный канал.");
+            if (!guildChannel) return message.reply("❌ Не удалось найти указанный канал на этом сервере.");
 
             await gdb.set("channel", guildChannel.id);
             await message.reply(`✅ Канал отправки партнёрств был успешно установлен (<#${guildChannel.id}>)`);
