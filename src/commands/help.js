@@ -18,8 +18,8 @@ module.exports.run = async (message, args, gdb, { prefix, permissionLevel }) => 
         embed: {
             title: `Помощь ${client.user.username}`,
             description: [
-                `• Если Вам нужна помощь по команде, используйте \`${prefix}help <команда>\`.`,
-                "• Сервер поддержки: [discord.gg/sof](https://discord.gg/sof)"
+                `**\`•\`** Если Вам нужна помощь по команде, используйте \`${prefix}help <команда>\`.`,
+                "**`•`** Сервер поддержки: [discord.gg/sof](https://discord.gg/sof)"
             ].join("\n"),
             color: config.color,
             timestamp: Date.now(),
