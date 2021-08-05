@@ -7,7 +7,7 @@ module.exports = {
     examples: {},
     aliases: ["ch"],
     permissionRequired: 1, // 0 All, 1 Admins, 2 Server Owner, 3 Bot Admin, 4 Bot Owner
-    checkArgs: (args) => (args[0] == "reset" && !args[1].length) || (args[0] == "set" && !!args[1].length && !args[2].length)
+    checkArgs: (args) => (args[0] == "reset" && !args[1]) || args[0] == "set" && !args[2]
 };
 
 module.exports.run = async (message, args, gdb) => {
