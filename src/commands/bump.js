@@ -31,12 +31,12 @@ module.exports.run = async (message = new Message, args, gdb) => {
         channel = g.channels.cache.get(gdb.get().channel),
         owner = g.owner.user.tag.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203)),
         ownerID = g.owner.user.id;
-    
+
     if (!description.length) return m.edit(`❌ Для начала опишите свой сервер используя команду \`${pref}description set\``);
     if (!channel) return m.edit(`❌ Не удалось найти канал рассылки партнёрств на этом сервере. Вы указывали его используя команду \`${pref}channel set\`?`);
     if (!channel.permissionsFor(message.guild.me).has("SEND_MESSAGES")) return m.edit("❌ У меня нет прав на отправление сообщений в указанном канале.");
-    if (!channel.permissionsFor(message.guild.me).has("INSTANT_INVITE")) return m.edit("❌ У меня нет прав на создание приглашений в указанном канале.");
-    if (!invite) return m.edit(`❌ Не удалось получить приглашение. Вы указывали канал используя команду \`${pref}channel set\`?`);
+    //if (!channel.permissionsFor(message.guild.me).has("INSTANT_INVITE")) return m.edit("❌ У меня нет прав на создание приглашений в указанном канале.");
+    if (!invite) return m.edit(`❌ Не удалось получить приглашение. У меня есть права на создание приглашений в указанном канале?`);
 
     let embed = new MessageEmbed()
         .setTitle(g.name)
