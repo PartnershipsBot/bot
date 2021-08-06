@@ -11,6 +11,9 @@ const
         messageEditHistoryMaxSize: 0,
         disableMentions: "all",
         partials: ["GUILD_MEMBER", "MESSAGE"],
+        ws: {
+            intents: ["GUILDS", "GUILD_MEMBERS"]
+        },
         presence: {
             status: "dnd",
             activity: {
