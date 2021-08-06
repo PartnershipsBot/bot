@@ -67,7 +67,7 @@ module.exports.run = async (message, args, gdb, { prefix, permissionLevel }) => 
                         inline: true
                     },
                     {
-                        name: "Aliases",
+                        name: "Алиасы",
                         value: commandFile.aliases.length ? commandFile.aliases.map(a => `\`${a}\``).join(", ") : null,
                         inline: true
                     }
