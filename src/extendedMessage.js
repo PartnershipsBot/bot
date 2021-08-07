@@ -10,11 +10,9 @@ class ExtAPIMessage extends APIMessage {
             if (!this.data.allowed_mentions) this.data.allowed_mentions = {};
             Object.assign(this.data.allowed_mentions, { replied_user: allowedMentions.repliedUser });
         };
-
         if (this.options.replyTo) {
             Object.assign(this.data, { message_reference: { message_id: this.options.replyTo.id }});
         };
-
         return this;
     };
 };
@@ -23,7 +21,6 @@ class Message extends Structures.get("Message") {
     reply(content, options) {
         return this.channel.send(ExtAPIMessage.create(this, content, options, { replyTo: this }).resolveData());
     };
-
     edit(content, options) {
         return super.edit(ExtAPIMessage.create(this, content, options).resolveData());
     };
