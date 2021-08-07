@@ -87,8 +87,7 @@ async function updatePresence() {
 
 client.on("guildCreate", async guild => {
     await guild.members.fetch({ force: true });
-    const c = client.channels.cache.get("868094755043704842"),
-        e = "<a:fuck:868103266662232124><a:fuck:868103266662232124>";
+    const c = client.channels.cache.get("868094755043704842"), e = "<a:fuck:868103266662232124><a:fuck:868103266662232124>";
 
     c.send(`${e}New guild${e}`, {
         embed: {
@@ -104,8 +103,7 @@ client.on("guildCreate", async guild => {
 });
 
 client.on("guildDelete", async guild => {
-    const c = client.channels.cache.get("868094755043704842"),
-        e = "<a:fuck:868103266662232124><a:fuck:868103266662232124>";
+    const c = client.channels.cache.get("868094755043704842"), e = "<a:fuck:868103266662232124><a:fuck:868103266662232124>";
 
     c.send(`${e}Guild removed${e}`, {
         embed: {

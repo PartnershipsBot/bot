@@ -13,7 +13,7 @@ module.exports.run = async (message = new Message, args, gdb) => {
     const
         g = message.guild,
         description = gdb.get().description,
-        pref = gdb.get().prefix || config.prefix,
+        pref = gdb.get().prefix || prefix,
         invite = await getInvite(g, gdb),
         memberCount = g.members.cache.filter(member => !member.user.bot).size,
         channel = g.channels.cache.get(gdb.get().channel),
