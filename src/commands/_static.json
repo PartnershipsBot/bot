@@ -1,0 +1,10 @@
+[
+    {
+        "triggers": [ "invite", "inviteme", "addme" ],
+        "message": "🔗 Приглашение: <https://discord.com/api/oauth2/authorize?client_id={{BOT_ID}}&permissions=19529&scope=bot>"
+    },
+    {
+        "triggers": [ "support" ],
+        "message": "🔗 Сервер поддержки: discord.gg/sof"
+    }
+]
