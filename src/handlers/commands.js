@@ -1,9 +1,10 @@
 const
     { getPermissionLevel } = require("../constants/"),
     { loadCommandDescriptions } = require("../commands/help"),
-    fs = require("fs");
+    fs = require("fs"),
+    { Message } = require("discord.js");
 
-module.exports = async (message, prefix, gdb, db) => {
+module.exports = async (message = new Message, prefix = String, gdb, db) => {
     let content;
     if (message.content.match(`^<@!?${client.user.id}> `)) content = message.content.split(" ").slice(1);
     else content = message.content.slice(prefix.length).split(" ");
@@ -23,6 +24,8 @@ module.exports = async (message, prefix, gdb, db) => {
 
         const args = (content.match(/"[^"]+"|[^ ]+/g) || []).map(arg => /*arg.startsWith("\"") && arg.endsWith("\"") ? arg.slice(1).slice(0, -1) : */arg);
         if (!commandFile.checkArgs(args)) return message.channel.send(`❌ Неверные аргументы. Для помощи, напишите \`${prefix}help ${commandName}\`.`);
+
+        log.log(`${message.author.tag} used the ${commandName} command`);
 
         return commandFile.run(message, args, gdb, { prefix, permissionLevel, db })
             .catch(async (e) => {
