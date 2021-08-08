@@ -136,7 +136,7 @@ const sendStats = async () => {
         headers: { "Authorization": "CDC " + token },
         data: {
             shards: client.shards,
-            servers: client.servers.cache.size
+            servers: client.guilds.cache.size
         }
     }).then(() => log.log(`Successfully sent stats for \`${client.user.tag}\``)).catch(err => log.error(err));
 };
