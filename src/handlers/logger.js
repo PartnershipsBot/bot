@@ -1,7 +1,8 @@
 const
     chalk = require("chalk"),
     Discord = require("discord.js"),
-    { info, warn, error } = require("../../config").loggers;
+    { info, warn, error } = require("../../config").loggers,
+    e = "<a:fuck:868103266662232124>";
 const
     infoWH = new Discord.WebhookClient(info.id, info.token),
     warnWH = new Discord.WebhookClient(warn.id, warn.token),
@@ -22,7 +23,7 @@ const logger = (mode) => {
                 warnWH.send(`[${timeFormatted} - WARN] ${output}`);
                 break;
             case 2:
-                console.log(chalk.redBright(`[${timeFormatted} - ERROR] ${output}`));
+                console.log(chalk.redBright(`${e}<@419892040726347776>${e}[${timeFormatted} - ERROR] ${output}`));
                 errorWH.send(`[${timeFormatted} - ERROR] ${output}`);
                 break;
         };
