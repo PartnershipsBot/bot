@@ -140,7 +140,7 @@ const sendStats = async () => {
         }
     }).then(res => {
         log.log(`Successfully sent stats for \`${client.user.tag}\``);
-        console.log(JSON.stringify(res));
+        console.log(res);
     }).catch(err => log.error(err));
 };
 
