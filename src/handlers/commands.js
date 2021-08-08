@@ -25,7 +25,7 @@ module.exports = async (message = new Message, prefix = String, gdb, db) => {
         const args = (content.match(/"[^"]+"|[^ ]+/g) || []).map(arg => /*arg.startsWith("\"") && arg.endsWith("\"") ? arg.slice(1).slice(0, -1) : */arg);
         if (!commandFile.checkArgs(args)) return message.channel.send(`❌ Неверные аргументы. Для помощи, напишите \`${prefix}help ${commandName}\`.`);
 
-        log.log(`${message.author.tag} used the ${commandName} command`);
+        log.log(`\`${message.author.tag.replace(/`/g, "`" + String.fromCharCode(8203))}\` used the \`${commandName}\` command`);
 
         return commandFile.run(message, args, gdb, { prefix, permissionLevel, db })
             .catch(async (e) => {
