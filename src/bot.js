@@ -1,5 +1,6 @@
 require("./extendedMessage");
 const
+    axios = require("axios"),
     Discord = require("discord.js"),
     config = require("../config"),
     { prefix } = require("../config"),
@@ -53,7 +54,12 @@ client.once("shardReady", async (shardid, unavailable = new Set()) => {
     client.loading = false;
 
     updatePresence();
-    client.setInterval(updatePresence, 10000);
+    client.setInterval(updatePresence, 10000); // 10 seconds
+
+    if (config.CDCToken) {
+        sendStats();
+        client.setInterval(sendStats, 10 * 60 * 1000); // 10 minutes
+    };
 });
 
 client.on("message", async message => {
@@ -74,16 +80,6 @@ client.on("message", async message => {
     if (message.content.startsWith(prefix) || message.content.match(`^<@!?${client.user.id}> `)) return commandHandler(message, prefix, gdb, db);
     if (message.content.match(`^<@!?${client.user.id}>`)) return message.reply(`👋 Мой префикс на этом сервере \`${prefix}\`, для помощи напишите \`${prefix}help\`.`);
 });
-
-async function updatePresence() {
-    let guildCount = await client.shard.broadcastEval("this.guilds.cache.size").then(res => res.reduce((prev, val) => prev + val, 0));
-
-    let name = `${prefix}help • ${plurify(guildCount, "сервер")}`;
-    return client.user.setPresence({
-        status: "online",
-        activity: { type: "WATCHING", name }
-    });
-};
 
 client.on("guildCreate", async guild => {
     await guild.members.fetch({ force: true });
@@ -118,9 +114,36 @@ client.on("guildDelete", async guild => {
     });
 });
 
+const updatePresence = async () => {
+    let guildCount = await client.shard.broadcastEval("this.guilds.cache.size").then(res => res.reduce((prev, val) => prev + val, 0));
+
+    let name = `${prefix}help • ${plurify(guildCount, "сервер")}`;
+    return client.user.setPresence({
+        status: "online",
+        activity: { type: "WATCHING", name }
+    });
+};
+
+const sendStats = async () => {
+    let
+        route = "https://api.server-discord.com/v2",
+        token = config.CDCToken;
+
+    log.log(`Trying to post stats for \`${client.user.tag}\``);
+    axios({
+        method: "POST",
+        url: route + "/bots/:id/stats".replace(":id", client.user.id),
+        headers: { "Authorization": "CDC " + token },
+        data: {
+            shards: client.shards,
+            servers: client.servers.cache.size
+        }
+    }).then(() => log.log(`Successfully sent stats for \`${client.user.tag}\``)).catch(err => log.error(err));
+};
+
 client
     .on("error", err => log.error(`${shard} Client error. ${err}`))
-    .on("rateLimit", rateLimitInfo => log.warn(`${shard} Rate limited. ${JSON.stringify(rateLimitInfo)}`))
+    .on("rateLimit", rateLimitInfo => log.warn(`${shard} Rate limited.\n${JSON.stringify(rateLimitInfo)}`))
     .on("shardDisconnected", closeEvent => log.warn(`${shard} Disconnected. ${closeEvent}`))
     .on("shardError", err => log.error(`${shard} Error. ${err}`))
     .on("shardReconnecting", () => log.log(`${shard} Reconnecting.`))
