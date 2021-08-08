@@ -138,7 +138,7 @@ const sendStats = async () => {
             shards: client.shards,
             servers: client.guilds.cache.size
         }
-    }).then(() => log.log(`Successfully sent stats for \`${client.user.tag}\``)).catch(err => log.error(err));
+    }).then(res => log.log(`Successfully sent stats for \`${client.user.tag}\`\n${JSON.stringify(res)}`)).catch(err => log.error(err));
 };
 
 client
