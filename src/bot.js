@@ -133,12 +133,15 @@ const sendStats = async () => {
     axios({
         method: "POST",
         url: route + "/bots/:id/stats".replace(":id", client.user.id),
-        headers: { "Authorization": "CDC " + token },
+        headers: { "Authorization": "SDC " + token },
         data: {
             shards: client.shards,
             servers: client.guilds.cache.size
         }
-    }).then(res => log.log(`Successfully sent stats for \`${client.user.tag}\`\n${JSON.stringify(res)}`)).catch(err => log.error(err));
+    }).then(res => {
+        log.log(`Successfully sent stats for \`${client.user.tag}\``);
+        console.log(JSON.stringify(res));
+    }).catch(err => log.error(err));
 };
 
 client
