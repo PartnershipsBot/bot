@@ -130,18 +130,15 @@ const sendStats = async () => {
         token = config.CDCToken;
 
     log.log(`Trying to post stats for \`${client.user.tag}\``);
-    axios({
-        method: "POST",
-        url: route + "/bots/:id/stats".replace(":id", client.user.id),
-        headers: { "Authorization": "SDC " + token },
-        data: {
-            shards: client.shards,
-            servers: client.guilds.cache.size
-        }
-    }).then(res => {
-        log.log(`Successfully sent stats for \`${client.user.tag}\``);
-        console.log(res);
-    }).catch(err => log.error(err));
+
+    require('node-fetch')(route + "/bots/:id/stats".replace(":id", client.user.id), {
+	    method: 'POST',
+	    headers: {
+		    'Content-Type': 'application/json',
+		    'Authorization': `SDC ${token}`,
+	    },
+	    body: JSON.stringify({ servers: client.guilds.cache.size, shards: config.shards }),
+    }).then(res => log.log(`Successfully sent stats for \`${client.user.tag}\`\n${JSON.stringify(res)}`)).catch(err => log.error(err));
 };
 
 client
