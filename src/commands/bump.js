@@ -26,10 +26,10 @@ module.exports.run = async (message = new Message, args, gdb) => {
         g = message.guild,
         description = gdb.get().description,
         pref = gdb.get().prefix || config.prefix,
-        invite = await getInvite(g, gdb),
+        invite = await getInvite(g),
         memberCount = g.members.cache.filter(member => !member.user.bot).size,
         channel = g.channels.cache.get(gdb.get().channel),
-        owner = g.owner.user.tag.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203)),
+        owner = g.owner.user.tag.replace(/`/g, "`" + String.fromCharCode(8203)),
         ownerID = g.owner.user.id;
 
     if (!description.length) return m.edit(`❌ Для начала опишите свой сервер используя команду \`${pref}description set\``);
@@ -78,8 +78,8 @@ module.exports.run = async (message = new Message, args, gdb) => {
     }, 1000);
 
     await Promise.all(client.guilds.cache.map(async (guild = new Guild) => {
-        if (!guild.available || guild.id == message.guild.id) return;
-        guildDB = await db.guild(guild.id);
+        if (!guild.available || guild.id === message.guild.id) return;
+        let guildDB = await db.guild(guild.id);
         let
             cID = guildDB.get().channel,
             channel = guild.channels.cache.get(cID);

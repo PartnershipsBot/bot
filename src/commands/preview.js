@@ -14,7 +14,7 @@ module.exports.run = async (message = new Message, args, gdb) => {
         g = message.guild,
         description = gdb.get().description,
         pref = gdb.get().prefix || prefix,
-        invite = await getInvite(g, gdb),
+        invite = await getInvite(g),
         memberCount = g.members.cache.filter(member => !member.user.bot).size,
         channel = g.channels.cache.get(gdb.get().channel),
         owner = g.owner.user.tag.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203)),
@@ -53,5 +53,5 @@ module.exports.run = async (message = new Message, args, gdb) => {
         pv.setThumbnail(g.iconURL({ dynamic: true, size: 128 }) || "https://cdn.discordapp.com/embed/avatars/0.png");
     };
 
-    message.reply(pv);
+    await message.reply(pv);
 };

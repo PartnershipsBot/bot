@@ -1,6 +1,5 @@
 require("./extendedMessage");
 const
-    axios = require("axios"),
     Discord = require("discord.js"),
     config = require("../config"),
     { prefix } = require("../config"),
@@ -40,7 +39,7 @@ client.once("shardReady", async (shardid, unavailable = new Set()) => {
 
     client.loading = true;
 
-    disabledGuilds = new Set([...Array.from(unavailable), ...client.guilds.cache.map(guild => guild.id)]);
+    let disabledGuilds = new Set([...Array.from(unavailable), ...client.guilds.cache.map(guild => guild.id)]);
     let guildCachingStart = Date.now();
 
     await db.cacheGuilds(disabledGuilds);
@@ -50,14 +49,14 @@ client.once("shardReady", async (shardid, unavailable = new Set()) => {
     await Promise.all(client.guilds.cache.map(guild => guild.members.fetch()));
     log.log(`${shard} All ${client.users.cache.size} users have been cached. [${Date.now() - userCachingStart}ms]`);
 
-    disabledGuilds = false;
+    disabledGuilds.size = 0;
     client.loading = false;
 
-    updatePresence();
+    await updatePresence();
     client.setInterval(updatePresence, 10000); // 10 seconds
 
     if (config.CDCToken) {
-        sendStats();
+        await sendStats();
         client.setInterval(sendStats, 30 * 60 * 1000); // 10 minutes
     };
 });
@@ -82,10 +81,10 @@ client.on("message", async message => {
 });
 
 client.on("guildCreate", async guild => {
-    await guild.members.fetch({ force: true });
-    const c = client.channels.cache.get("868094755043704842"), e = "<a:fuck:868103266662232124><a:fuck:868103266662232124>";
+    await guild.members.fetch();
+    const e = "<a:fuck:868103266662232124>";
 
-    c.send(`${e}New guild${e}`, {
+    log.log(`${e}New guild${e}`, {
         embed: {
             title: guild.name,
             thumbnail: {
@@ -99,9 +98,9 @@ client.on("guildCreate", async guild => {
 });
 
 client.on("guildDelete", async guild => {
-    const c = client.channels.cache.get("868094755043704842"), e = "<a:fuck:868103266662232124><a:fuck:868103266662232124>";
+    const e = "<a:fuck:868103266662232124>";
 
-    c.send(`${e}Guild removed${e}`, {
+    log.log(`${e}Guild removed${e}`, {
         embed: {
             title: guild.name,
             thumbnail: {

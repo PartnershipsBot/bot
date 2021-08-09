@@ -1,8 +1,8 @@
 module.exports = {
     apps: [
         {
-            name   : "bot",
-            script : "./src/sharding.js"
+            name: "bot",
+            script: "./src/sharding.js"
         }
     ]
 };

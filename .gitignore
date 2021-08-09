@@ -218,15 +218,9 @@ $RECYCLE.BIN/
 !.yarn/sdks
 !.yarn/versions
 
-# if you are NOT using Zero-installs, then:
-# comment the following lines
-#!.yarn/cache
-
-# and uncomment the following lines
-.pnp.*
-
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,windows,linux,macos,node,dotenv,yarn
 
 # custom
 
 config.js
+.idea

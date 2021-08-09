@@ -1,22 +1,22 @@
-module.exports.getInvite = async (guild, gdb) => {
+module.exports.getInvite = async (guild) => {
+    const guildDB = await db.guild(guild.id);
 
-    if (!guild || !gdb) return;
-
-    const channel = await guild.channels.resolve(gdb.get().channel);
-    if (!channel) return null;
+    const channel = await guild.channels.resolve(guildDB.get().channel);
+    if (!channel) return false;
 
     let i;
 
     guild.fetchInvites()
         .then(invites => {
-            invites.find(invite => i = invite.inviter.id === guild.client.user.id);
+            invites.find(invite => i = invite.inviter.id === client.user.id);
         });
 
     if (i) i = i.code;
     else {
-        return channel.createInvite({ maxAge: 0 })
+        channel.createInvite({ maxAge: 0 })
             .then(inv => {
-                return inv.code;
+                i = inv.code;
             });
     };
+    return i;
 };

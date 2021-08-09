@@ -6,19 +6,18 @@ module.exports = Object.assign(
 );
 
 module.exports.getPermissionLevel = member => {
-    if (config.admins[0] == member.user.id) return 4; // bot owner
+    if (config.admins[0] === member.user.id) return 4; // bot owner
     if (config.admins.includes(member.user.id)) return 3; // bot admin
-    if (member.guild.ownerID == member.id) return 2; // server owner
+    if (member.guild.ownerID === member.id) return 2; // server owner
     if (member.hasPermission("MANAGE_GUILD")) return 1; // server admin
     return 0; // server member
 };
 
 module.exports.plurify = (number, word) => {
     const endsWith = (str, suffix) => {
-        return String(str).match(suffix + "$") == suffix;
+        return String(str).match(suffix + "$") === suffix;
     };
 
-    let returning;
     if (
         endsWith(number, 0) ||
         endsWith(number, 5) ||
@@ -26,14 +25,11 @@ module.exports.plurify = (number, word) => {
         endsWith(number, 7) ||
         endsWith(number, 8) ||
         endsWith(number, 9)
-    ) returning = `${number} ${word}ов`;
-    else if (endsWith(number, 1)) returning = `${number} ${word}`;
+    ) return `${number} ${word}ов`;
+    else if (endsWith(number, 1)) return `${number} ${word}`;
     else if (
         endsWith(number, 2) ||
         endsWith(number, 3) ||
         endsWith(number, 4)
-    ) returning = `${number} ${word}а`;
-    else return null;
-
-    return returning;
+    ) return `${number} ${word}а`;
 };
