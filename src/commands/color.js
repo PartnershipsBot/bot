@@ -19,11 +19,11 @@ module.exports.run = async (message, args, gdb) => {
             await message.react("✅");
             break;
         case "set":
-            const color = args[1].trim().match(/^#([0-9A-F]{3}){1,2}$/i)[0];
+            const color = args[1].trim().match(/^#([0-9A-F]{3}){1,2}$/i);
 
             if (!color) return message.react("❌");
 
-            await gdb.set("color", color);
+            await gdb.set("color", color[0]);
             await message.react("✅");
             break;
     };
