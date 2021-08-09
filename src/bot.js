@@ -138,7 +138,7 @@ const sendStats = async () => {
 		    'Authorization': `SDC ${token}`,
 	    },
 	    body: JSON.stringify({ servers: client.guilds.cache.size, shards: config.shards }),
-    }).then(res => log.log(`Successfully sent stats for \`${client.user.tag}\` [${Date.now() - postStart}ms]`)).catch(err => log.error(err));
+    }).then(() => log.log(`Successfully sent stats for \`${client.user.tag}\` [${Date.now() - postStart}ms]`)).catch(err => log.error(err));
 };
 
 client
