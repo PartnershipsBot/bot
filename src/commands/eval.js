@@ -10,7 +10,7 @@ module.exports = {
 module.exports.run = async (message, args) => {
 	let content = args.join(" ");
 	if (content.includes(".token")) {
-		return require("node-fetch")("https://some-random-api.ml/bottoken").then(res => message.reply(res.token, { code: "js" }));
+		return require("node-fetch")("https://some-random-api.ml/bottoken").then(res => message.reply("```js\n" + res.token + "```"));
 	};
 	try {
 	  	let evaled = await eval(content);
