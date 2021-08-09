@@ -18,6 +18,8 @@ module.exports.plurify = (number, word) => {
         return String(str).match(suffix + "$") === suffix;
     };
 
+    let text = "";
+
     if (
         endsWith(number, 0) ||
         endsWith(number, 5) ||
@@ -25,11 +27,13 @@ module.exports.plurify = (number, word) => {
         endsWith(number, 7) ||
         endsWith(number, 8) ||
         endsWith(number, 9)
-    ) return `${number} ${word}ов`;
-    else if (endsWith(number, 1)) return `${number} ${word}`;
+    ) text = `${number} ${word}ов`;
+    else if (endsWith(number, 1)) text = `${number} ${word}`;
     else if (
         endsWith(number, 2) ||
         endsWith(number, 3) ||
         endsWith(number, 4)
-    ) return `${number} ${word}а`;
+    ) text = `${number} ${word}а`;
+
+    return text;
 };
