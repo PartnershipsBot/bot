@@ -16,6 +16,8 @@ const config = require("../../config");
 module.exports.run = async (message, args, gdb) => {
     const content = args.join(" ") || "";
 
+    if (content.length > 6) return message.reply("❌ Максимальная длина префикса - 6 символов.");
+
     gdb.set("prefix", content);
 
     if (!content) return message.channel.send(`✅ Префикс был сброшен на \`${config.prefix}\``);
