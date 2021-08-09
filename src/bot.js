@@ -84,7 +84,7 @@ client.on("guildCreate", async guild => {
     await guild.members.fetch();
     const e = "<a:fuck:868103266662232124>";
 
-    log.log(`${e}New guild${e}`, {
+    client.channels.cache.get("868094755043704842").send(`${e}New guild${e}`, {
         embed: {
             title: guild.name,
             thumbnail: {
@@ -100,7 +100,7 @@ client.on("guildCreate", async guild => {
 client.on("guildDelete", async guild => {
     const e = "<a:fuck:868103266662232124>";
 
-    log.log(`${e}Guild removed${e}`, {
+    client.channels.cache.get("868094755043704842").send(`${e}Guild removed${e}`, {
         embed: {
             title: guild.name,
             thumbnail: {
