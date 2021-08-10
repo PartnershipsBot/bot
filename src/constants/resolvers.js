@@ -1,5 +1,8 @@
-module.exports.getInvite = async (guild) => {
-    const guildDB = await db.guild(guild.id);
+module.exports.getInvite = async (guild, gdb) => {
+    let guildDB;
+
+    if (!gdb) guildDB = await db.guild(guild.id);
+    else guildDB = gdb;
 
     const channel = await guild.channels.resolve(guildDB.get().channel);
     if (!channel) return false;
