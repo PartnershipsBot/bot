@@ -10,6 +10,7 @@ module.exports = {
 const { MessageEmbed, Message } = require("discord.js"), { color, prefix } = require("../../config"), { getInvite } = require("../constants/");
 
 module.exports.run = async (message = new Message, args, gdb, { permissionLevel }) => {
+    let pv = new MessageEmbed();
     if (permissionLevel => 3) {
         const
             g = args[0] ? client.guilds.cache.get(args[0]) : message.guild,
@@ -26,8 +27,7 @@ module.exports.run = async (message = new Message, args, gdb, { permissionLevel 
         if (!channel.permissionsFor(message.guild.me).has("CREATE_INSTANT_INVITE")) return message.reply("❌ У меня нет прав на создание приглашений в указанном канале.");
         if (!invite) return message.reply("❌ Не удалось получить приглашение. Сообщите разработчику.");
 
-        let pv = new MessageEmbed()
-            .setTitle(g.name)
+        pv.setTitle(g.name)
             .setThumbnail(g.iconURL({ dynamic: true, size: 64 }) || "https://cdn.discordapp.com/embed/avatars/0.png")
             .setDescription(guildDB.get().description)
             .setFooter(`ID: ${guildDB.get().guildid}`)
@@ -68,8 +68,7 @@ module.exports.run = async (message = new Message, args, gdb, { permissionLevel 
         if (!channel.permissionsFor(message.guild.me).has("CREATE_INSTANT_INVITE")) return message.reply("❌ У меня нет прав на создание приглашений в указанном канале.");
         if (!invite) return message.reply("❌ Не удалось получить приглашение. Сообщите разработчику.");
 
-        let pv = new MessageEmbed()
-            .setTitle(g.name)
+        pv.setTitle(g.name)
             .setThumbnail(g.iconURL({ dynamic: true, size: 64 }) || "https://cdn.discordapp.com/embed/avatars/0.png")
             .setDescription(gdb.get().description)
             .setFooter(`ID: ${gdb.get().guildid}`)
