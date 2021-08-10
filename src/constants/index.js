@@ -15,7 +15,7 @@ module.exports.getPermissionLevel = member => {
 
 module.exports.plurify = (number, word) => {
     const endsWith = (str, suffix) => {
-        return String(str).match(suffix + "$") === suffix;
+        return String(str).match(suffix + "$") == suffix;
     };
 
     let text = "";
