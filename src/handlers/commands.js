@@ -23,7 +23,7 @@ module.exports = async (message = new Message, prefix = String, gdb, db) => {
         if (permissionLevel < commandFile.permissionRequired) return message.channel.send("❌ Недостаточно прав.");
 
         const args = (content.match(/"[^"]+"|[^ ]+/g) || []).map(arg => /*arg.startsWith("\"") && arg.endsWith("\"") ? arg.slice(1).slice(0, -1) : */arg);
-        if (!commandFile.checkArgs(args, permissionLevel)) return message.channel.send(`❌ Неверные аргументы. Для помощи, напишите \`${prefix}help ${commandName}\`.`);
+        if (!commandFile.checkArgs(args)) return message.channel.send(`❌ Неверные аргументы. Для помощи, напишите \`${prefix}help ${commandName}\`.`);
 
         log.log(`\`${message.author.tag.replace(/`/g, "`" + String.fromCharCode(8203))}\` used the \`${commandName}\` command (\`${message.guild.name}\` - \`${message.channel.name}\`)`);
 

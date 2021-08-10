@@ -4,7 +4,7 @@ module.exports = {
     examples: {},
     aliases: ["pv"],
     permissionRequired: 0, // 0 All, 1 Admins, 2 Server Owner, 3 Bot Admin, 4 Bot Owner
-    checkArgs: (args, permissionLevel) => (permissionLevel <= 2 && !args.length) || (permissionLevel => 3 && !!args[0] && !args[1])
+    checkArgs: (args) => !args.length
 };
 
 const { MessageEmbed, Message } = require("discord.js"), { color, prefix } = require("../../config"), { getInvite } = require("../constants/");
