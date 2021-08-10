@@ -24,7 +24,7 @@ module.exports.run = async (message = new Message, args, gdb, { permissionLevel 
             owner = g.owner.user.tag.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203)),
             ownerID = g.owner.user.id;
 
-        if (!channel) return message.reply("❌ Не удалось найти канал рассылки партнёрств на этом сервере.");
+        if (!channel) return message.reply(`❌ Не удалось найти канал рассылки партнёрств на этом сервере. Вы указывали его используя команду \`${pref}channel set\`?`);
         if (!channel.permissionsFor(message.guild.me).has("CREATE_INSTANT_INVITE")) return message.reply("❌ У меня нет прав на создание приглашений в указанном канале.");
         if (!invite) return message.reply("❌ Не удалось получить приглашение. Сообщите разработчику.");
 
