@@ -12,7 +12,7 @@ const { MessageEmbed, Message } = require("discord.js"), { color, prefix } = req
 module.exports.run = async (message = new Message, args, gdb, { permissionLevel }) => {
     if (permissionLevel => 3) {
         const
-            g = client.guilds.cache.get(args[0]) || message.guild,
+            g = args[0] ? client.guilds.cache.get(args[0]) : message.guild,
             guildDB = await db.guild(g.id),
             description = guildDB.get().description,
             pref = guildDB.get().prefix || prefix,
