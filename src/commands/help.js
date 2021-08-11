@@ -19,7 +19,7 @@ module.exports.run = async (message, args, gdb, { prefix, permissionLevel }) => 
             title: `Помощь ${client.user.username}`,
             description: [
                 `**\`•\`** Если Вам нужна помощь по команде, используйте \`${prefix}help <команда>\`.`,
-                "**`•`** Сервер поддержки: [discord.gg/sof](https://discord.gg/sof)"
+                "**`•`** Есть вопросы? Заходите на наш сервер поддержки: [discord.gg/sof](https://discord.gg/sof)"
             ].join("\n"),
             color: config.color,
             timestamp: Date.now(),
@@ -62,7 +62,7 @@ module.exports.run = async (message, args, gdb, { prefix, permissionLevel }) => 
                         value: Object.keys(commandFile.examples).length ? Object.keys(commandFile.examples).map(ex => `• \`${prefix}${commandFile.command}${ex ? ` ${ex}` : ""}\`: ${commandFile.examples[ex]}`).join("\n") : null
                     },
                     {
-                        name: "Уровень прав",// 0 All, 1 Admins, 3 Server Owner, 4 Bot Admin, 5 Bot Owner
+                        name: "Уровень прав", // 0 All, 1 Admins, 2 Server Owner, 3 Bot Admin, 4 Bot Owner
                         value: `${commandFile.permissionRequired}: ${["Все", "Серверные Администраторы", "Владелец сервера", "Системные администраторы", "Владелец бота"][commandFile.permissionRequired]} ${permissionLevel >= commandFile.permissionRequired ? "✅" : "❌"}`,
                         inline: true
                     },
@@ -77,12 +77,11 @@ module.exports.run = async (message, args, gdb, { prefix, permissionLevel }) => 
     };
 };
 
-// loading commands
 let commands = [], defaultCommand = {
     description: "Undocumented.",
     usage: {},
     examples: {},
-    aliases: [], // all except the first trigger
+    aliases: [],
     permissionRequired: 0
 };
 
@@ -91,8 +90,8 @@ const loadCommandDescriptions = () => {
 
     for (const static of require("./_static.json")) if (!static.hideFromHelp) commands.push(Object.assign({}, defaultCommand, {
         description: "Статическая команда.",
-        aliases: static.triggers.slice(1), // all except the first trigger
-        command: static.triggers[0] // the first trigger
+        aliases: static.triggers.slice(1),
+        command: static.triggers[0]
     }));
 
     fs.readdir("./src/commands/", (err, files) => {
@@ -102,7 +101,6 @@ const loadCommandDescriptions = () => {
             commandFile.command = fileName;
             if (config.isPremium || !commandFile.premiumOnly) commands.push(Object.assign({}, defaultCommand, commandFile));
         };
-        // sort the commands list by name once all commands have been loaded in
         commands = commands.sort((a, b) => a.command.localeCompare(b.command));
     });
 };

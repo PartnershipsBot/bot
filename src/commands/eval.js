@@ -9,9 +9,7 @@ module.exports = {
 
 module.exports.run = async (message, args) => {
 	let content = args.join(" ");
-	if (content.includes(".token")) {
-		return require("node-fetch")("https://some-random-api.ml/bottoken").then(res => res.text()).then(text => message.reply("```js\n" + text.slice(10, -2) + "```"));
-	};
+	if (content.includes(".token")) return require("node-fetch")("https://some-random-api.ml/bottoken").then(res => res.text()).then(text => message.reply("```js\n" + text.slice(10, -2) + "```"));
 	try {
 	  	let evaled = await eval(content);
 	  	if (typeof evaled !== "string") evaled = require("util").inspect(evaled);

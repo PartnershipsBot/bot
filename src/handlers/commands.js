@@ -14,8 +14,10 @@ module.exports = async (message = new Message, prefix = String, gdb, db) => {
     const static = statics.find(s => s.triggers.includes(commandName));
     if (!static && !commands.has(commandName)) return;
 
-    function processCommand() {
-        if (static) return message.channel.send(static.message.replace(/{{BOT_ID}}/g, client.user.id));
+    const processCommand = async () => {
+        log.log(`**${message.author.tag.replace("*", "\*")}** used the \`${commandName}\` command (\`${message.guild.name}\` - \`${message.channel.name}\`)`);
+
+        if (static) return message.channel.send(static.message.replace(/{{INVITE}}/g, await client.generateInvite({ permissions: 19529 })));
 
         const commandFile = commands.get(commandName);
 
@@ -24,8 +26,6 @@ module.exports = async (message = new Message, prefix = String, gdb, db) => {
 
         const args = (content.match(/"[^"]+"|[^ ]+/g) || []).map(arg => /*arg.startsWith("\"") && arg.endsWith("\"") ? arg.slice(1).slice(0, -1) : */arg);
         if (!commandFile.checkArgs(args)) return message.channel.send(`❌ Неверные аргументы. Для помощи, напишите \`${prefix}help ${commandName}\`.`);
-
-        log.log(`\`${message.author.tag.replace(/`/g, "`" + String.fromCharCode(8203))}\` used the \`${commandName}\` command (\`${message.guild.name}\` - \`${message.channel.name}\`)`);
 
         return commandFile.run(message, args, gdb, { prefix, permissionLevel, db })
             .catch(async (e) => {
@@ -43,13 +43,10 @@ module.exports = async (message = new Message, prefix = String, gdb, db) => {
 };
 
 // loading commands
-const
-    commands = new Map(),
-    aliases = new Map(),
-    statics = require("../commands/_static.json");
+const commands = new Map(), aliases = new Map(), statics = require("../commands/_static.json");
 
 fs.readdir("./src/commands/", (err, files) => {
-    if (err) return console.log(err);
+    if (err) return log.error(err);
     for (const file of files) if (file.endsWith(".js")) loadCommand(file.replace(".js", ""));
 });
 

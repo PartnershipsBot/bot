@@ -14,7 +14,7 @@ module.exports = {
 const config = require("../../config");
   
 module.exports.run = async (message, args, gdb) => {
-    const content = args.join(" ") || "";
+    const content = args.length ? args.join(" ").replace(/"|'/g, "") : "";
 
     if (content.length > 6) return message.reply("❌ Максимальная длина префикса - 6 символов.");
 
