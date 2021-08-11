@@ -14,7 +14,7 @@ module.exports.run = async (message = new Message, args, gdb) => {
         guild = message.guild,
         description = gdb.get().description,
         pref = gdb.get().prefix || prefix,
-        invite = await getInvite(g),
+        invite = await getInvite(guild, gdb),
         memberCount = guild.members.cache.filter(member => !member.user.bot).size,
         channel = guild.channels.cache.get(gdb.get().channel),
         owner = guild.owner.user.tag.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203)),
