@@ -42,11 +42,9 @@ module.exports = () => (async () => {
     if (!dbCache.has("global")) await load();
     return {
 
-        // debugging
         reload: () => load(),
         unload: () => dbCache.delete("global"),
 
-        // general access and modifications
         get: () => Object.assign({}, dbCache.get("global")),
         set: (key, value) => {
             dbCache.get("global")[key] = value;
