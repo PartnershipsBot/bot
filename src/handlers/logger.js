@@ -23,8 +23,8 @@ const logger = (mode) => {
                 warnWH.send(`[${timeFormatted} - WARN] ${output}`);
                 break;
             case 2:
-                console.log(chalk.redBright(`${e}<@419892040726347776>${e}[${timeFormatted} - ERROR] ${output}`));
-                errorWH.send(`[${timeFormatted} - ERROR] ${output}`);
+                console.log(chalk.redBright(`[${timeFormatted} - ERROR] ${output}`));
+                errorWH.send(`${e}<@419892040726347776>${e}[${timeFormatted} - ERROR] ${output}`);
                 break;
         };
     };
