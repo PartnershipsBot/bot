@@ -12,7 +12,7 @@ module.exports.run = async (message) => {
     //let dbPing = Date.now();
     //await require("node-fetch")("cluster0.2xmz7.mongodb.net:27017").then(() => dbPing = Date.now() - dbPing); // change "cluster0.2xmz7.mongodb.net" to your db domain
 
-    return m.edit({
+    return m.edit("", {
         embed: {
             title: "🏓 Понг!",
             fields: [
