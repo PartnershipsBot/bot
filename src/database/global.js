@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const dbCache = new Map();
+const dbCache = new Map(), dbSaveQueue = new Map();
 
 const globalObject = {
     maintenance: false,
@@ -20,7 +20,7 @@ const get = () => new Promise((resolve, reject) => Global.findOne({}, (err, glob
 }));
 
 const load = async () => {
-    let global = await get("global"), globalCache = {}, freshGuildObject = JSON.parse(JSON.stringify(globalObject));
+    let global = await get(), globalCache = {}, freshGuildObject = JSON.parse(JSON.stringify(globalObject));
     for (const key in freshGuildObject) globalCache[key] = global[key] || freshGuildObject[key];
     return dbCache.set("global", globalCache);
 };
@@ -40,7 +40,7 @@ const save = async (changes) => {
 
 module.exports = {
     // debugging
-    reload: () => load("global"),
+    reload: () => load(),
     unload: () => dbCache.delete("global"),
 
     // general access and modifications
