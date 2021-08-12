@@ -72,8 +72,7 @@ client.on("message", async message => {
 
     const gdb = await db.guild(message.guild.id);
     global.gdb = gdb;
-    const gldb = await db.global();
-    global.gldb = gldb;
+    global.gldb = db.global;
 
     let { prefix } = gdb.get();
     if (!prefix.length) prefix = config.prefix;
