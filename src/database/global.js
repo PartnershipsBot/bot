@@ -20,15 +20,15 @@ const get = () => new Promise((resolve, reject) => Global.findOne({}, (err, glob
 }));
 
 const save = async (changes) => {
-    dbSaveQueue.set(changes);
-    let global = await get(), globalCache = dbCache.get(), globalSaveQueue = JSON.parse(JSON.stringify(dbSaveQueue.get()));
+    dbSaveQueue.set("global", changes);
+    let global = await get(), globalCache = dbCache.get("global"), globalSaveQueue = JSON.parse(JSON.stringify(dbSaveQueue.get("global")));
     for (const key of globalSaveQueue) global[key] = globalCache[key];
     return global.save().then(() => {
-        let newSaveQueue = dbSaveQueue.get();
+        let newSaveQueue = dbSaveQueue.get("global");
         if (newSaveQueue.length > globalSaveQueue.length) {
-            dbSaveQueue.delete();
-            save(newSaveQueue.filter(key => !globalSaveQueue.includes(key)));
-        } else dbSaveQueue.delete();
+            dbSaveQueue.delete("global");
+            save("global", newSaveQueue.filter(key => !globalSaveQueue.includes(key)));
+        } else dbSaveQueue.delete("global");
     }).catch(console.log);
 };
 
