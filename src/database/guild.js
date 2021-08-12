@@ -46,7 +46,6 @@ const save = async (guildid, changes) => {
 module.exports = () => (async guildid => {
     if (!dbCache.has(guildid)) await load(guildid);
     return {
-
         reload: () => load(guildid),
         unload: () => dbCache.delete(guildid),
 

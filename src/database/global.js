@@ -41,7 +41,6 @@ const save = async (changes) => {
 module.exports = () => (async () => {
     if (!dbCache.has("global")) await load();
     return {
-
         reload: () => load(),
         unload: () => dbCache.delete("global"),
 
