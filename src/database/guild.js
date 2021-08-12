@@ -47,11 +47,9 @@ module.exports = () => (async guildid => {
     if (!dbCache.has(guildid)) await load(guildid);
     return {
 
-        // debugging
         reload: () => load(guildid),
         unload: () => dbCache.delete(guildid),
 
-        // general access and modifications
         get: () => Object.assign({}, dbCache.get(guildid)),
         set: (key, value) => {
             dbCache.get(guildid)[key] = value;
