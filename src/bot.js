@@ -132,12 +132,12 @@ const sendStats = async () => {
     log.log(`Trying to post stats for \`${client.user.tag}\``);
 
     require('node-fetch')(route + "/bots/:id/stats".replace(":id", client.user.id), {
-	    method: 'POST',
-	    headers: {
-		    'Content-Type': 'application/json',
-		    'Authorization': `SDC ${token}`,
-	    },
-	    body: JSON.stringify({ servers: client.guilds.cache.size, shards: config.shards }),
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `SDC ${token}`,
+        },
+        body: JSON.stringify({ servers: client.guilds.cache.size, shards: config.shards }),
     }).then(() => log.log(`Successfully sent stats for \`${client.user.tag}\` [${Date.now() - postStart}ms]`)).catch(err => log.error(err));
 };
 

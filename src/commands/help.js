@@ -6,7 +6,7 @@ module.exports = {
     examples: {
         "help": "Получить помощь по команде... Подождите, Вы это уже нашли :D"
     },
-    aliases: [ "commands" ],
+    aliases: ["commands"],
     permissionRequired: 0, // 0 All, 1 Admins, 2 Server Owner, 3 Bot Admin, 4 Bot Owner
     checkArgs: (args) => args.length <= 1
 };

@@ -17,7 +17,7 @@ let guilds = 0, users = 0, shardCount = 0, memory = 0, memoryUsage = "0MB", memo
 
 module.exports.run = async (message) => {
     if (nextUpdate < Date.now()) {
-        nextUpdate = Date.now() + 10000; 
+        nextUpdate = Date.now() + 10000;
         if (client.shard) {
             guilds = await client.shard.broadcastEval("this.guilds.cache.size").then(res => res.reduce((prev, val) => prev + val, 0));
             users = await client.shard.broadcastEval("this.guilds.cache.map(g => g.memberCount).reduce((a, b) => a + b)").then(res => res.reduce((prev, val) => prev + val, 0));

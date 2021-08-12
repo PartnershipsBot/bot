@@ -11,7 +11,7 @@ class ExtAPIMessage extends APIMessage {
             Object.assign(this.data.allowed_mentions, { replied_user: allowedMentions.repliedUser });
         };
         if (this.options.replyTo) {
-            Object.assign(this.data, { message_reference: { message_id: this.options.replyTo.id }});
+            Object.assign(this.data, { message_reference: { message_id: this.options.replyTo.id } });
         };
         return this;
     };

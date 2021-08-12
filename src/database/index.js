@@ -7,12 +7,13 @@ module.exports = () => {
         useCreateIndex: true,
         useUnifiedTopology: true
     }).catch(e => {
-        console.log(e);
+        log.error(e.message + ": " + e.stack);
         client.shard.send("respawn");
     });
 
     return {
         guild: require("./guild")(), // guild(guildid)
-        cacheGuilds: require("./guild").cacheAll
+        cacheGuilds: require("./guild").cacheAll,
+        global: require("./global.js")
     };
 };
