@@ -32,34 +32,32 @@ const save = async (changes) => {
     }).catch(console.log);
 };
 
-module.exports = () => (async () => {
-    return {
-        get: () => Object.assign({}, dbCache.get()),
-        set: (key, value) => {
-            dbCache.get()[key] = value;
-            save([key]);
-        },
-        setMultiple: (changes) => {
-            let globalCache = dbCache.get();
-            Object.assign(globalCache, changes);
+module.exports = {
+    get: () => Object.assign({}, dbCache.get()),
+    set: (key, value) => {
+        dbCache.get()[key] = value;
+        save([key]);
+    },
+    setMultiple: (changes) => {
+        let globalCache = dbCache.get();
+        Object.assign(globalCache, changes);
 
-            save(Object.keys(changes));
-        },
-        addToArray: (array, value) => {
-            dbCache.get()[array].push(value);
-            save([array]);
-        },
-        removeFromArray: (array, value) => {
-            dbCache.get()[array] = dbCache.get()[array].filter(aValue => aValue !== value);
-            save([array]);
-        },
-        setOnObject: (object, key, value) => {
-            dbCache.get()[object][key] = value;
-            save([object]);
-        },
-        removeFromObject: (object, key) => {
-            delete dbCache.get()[object][key];
-            save([object]);
-        }
-    };
-});
+        save(Object.keys(changes));
+    },
+    addToArray: (array, value) => {
+        dbCache.get()[array].push(value);
+        save([array]);
+    },
+    removeFromArray: (array, value) => {
+        dbCache.get()[array] = dbCache.get()[array].filter(aValue => aValue !== value);
+        save([array]);
+    },
+    setOnObject: (object, key, value) => {
+        dbCache.get()[object][key] = value;
+        save([object]);
+    },
+    removeFromObject: (object, key) => {
+        delete dbCache.get()[object][key];
+        save([object]);
+    }
+};
