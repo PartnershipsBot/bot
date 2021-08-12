@@ -44,7 +44,7 @@ const save = async (guildid, changes) => {
 };
 
 module.exports = () => (async guildid => {
-    if (!dbCache.has(guildid)) await load(guildid); // if the guild is unloaded for some reason, we load it
+    if (!dbCache.has(guildid)) await load(guildid);
     return {
 
         // debugging
@@ -55,7 +55,7 @@ module.exports = () => (async guildid => {
         get: () => Object.assign({}, dbCache.get(guildid)),
         set: (key, value) => {
             dbCache.get(guildid)[key] = value;
-            save(guildid, [ key ]);
+            save(guildid, [key]);
         },
         setMultiple: (changes) => {
             let guildCache = dbCache.get(guildid);
@@ -65,19 +65,19 @@ module.exports = () => (async guildid => {
         },
         addToArray: (array, value) => {
             dbCache.get(guildid)[array].push(value);
-            save(guildid, [ array ]);
+            save(guildid, [array]);
         },
         removeFromArray: (array, value) => {
             dbCache.get(guildid)[array] = dbCache.get(guildid)[array].filter(aValue => aValue !== value);
-            save(guildid, [ array ]);
+            save(guildid, [array]);
         },
         setOnObject: (object, key, value) => {
             dbCache.get(guildid)[object][key] = value;
-            save(guildid, [ object ]);
+            save(guildid, [object]);
         },
         removeFromObject: (object, key) => {
             delete dbCache.get(guildid)[object][key];
-            save(guildid, [ object ]);
+            save(guildid, [object]);
         },
         reset: () => {
             let guildCache = dbCache.get(guildid);
