@@ -39,7 +39,6 @@ const save = async (changes) => {
 };
 
 module.exports = () => (async () => {
-    if (!dbCache.has("global")) await load("global");
     return {
 
         // debugging
