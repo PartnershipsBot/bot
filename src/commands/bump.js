@@ -7,7 +7,8 @@ module.exports = {
     checkArgs: (args) => !args.length
 };
 
-let config = require("../../config"), { getInvite } = require("../constants/"), { MessageEmbed, Guild, Message } = require("discord.js");
+const config = require("../../config"), { getInvite } = require("../constants/"), { MessageEmbed, Guild, Message } = require("discord.js");
+const bumping = new Set();
 
 module.exports.run = async (message = new Message, args, gdb) => {
     if (Date.now() <= gdb.get().nextBump) return message.reply(`⏲️ Подождите ещё \`${msToTime(gdb.get().nextBump - Date.now())}\``);
@@ -37,6 +38,9 @@ module.exports.run = async (message = new Message, args, gdb) => {
     if (!channel.permissionsFor(message.guild.me).has("SEND_MESSAGES")) return m.edit("❌ У меня нет прав на отправление сообщений в указанном канале.");
     if (!channel.permissionsFor(message.guild.me).has("CREATE_INSTANT_INVITE")) return m.edit("❌ У меня нет прав на создание приглашений в указанном канале.");
     if (!invite) return m.edit("❌ Не удалось получить приглашение. Сообщите разработчику.");
+    if (bumping.has(message.guild.id)) return m.edit("❌ На этом сервере уже идёт рассылка.");
+
+    bumping.push(message.guild.id);
 
     let embed = new MessageEmbed()
         .setTitle(g.name)
@@ -88,6 +92,7 @@ module.exports.run = async (message = new Message, args, gdb) => {
         channel.send(embed);
         completed++;
     }));
+    bumping.delete(message.guild.id);
     clearInterval(messageInterval);
     gdb.set("nextBump", Date.now() + 21600000);
     return m.edit({
