@@ -33,8 +33,8 @@ module.exports.run = async (message, args) => {
         });
     };
 
-    gldb.addToArray("blacklistedServers", args[0]).then(() => {
-        toEdit += "Готово.";
-        m.edit(toEdit);
-    });
+    gldb.addToArray("blacklistedServers", args[0]);
+
+    toEdit += "Готово.";
+    m.edit(toEdit);
 };
