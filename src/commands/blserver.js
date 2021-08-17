@@ -15,7 +15,7 @@ module.exports.run = async (message, args) => {
     if (guild) {
         const owner = await client.users.fetch(guild.ownerID);
         if (owner) {
-            owner.send(
+            await owner.send(
                 `Я покинул Ваш сервер **${guild.name}** из-за добавления его в Чёрный Список создателем бота.\n\n` +
                 "Если Вы хотите обжаловать это, заходите на наш сервер поддержки - https://discord.gg/sof"
             ).then(() => {
@@ -27,7 +27,7 @@ module.exports.run = async (message, args) => {
             });
         };
 
-        guild.leave().then(() => {
+        await guild.leave().then(() => {
             toEdit = `Я покинул сервер.`;
             m.edit(toEdit);
         });
@@ -36,5 +36,5 @@ module.exports.run = async (message, args) => {
     gldb.addToArray("blacklistedServers", args[0]);
 
     toEdit = "Готово.";
-    m.edit(toEdit);
+    await m.edit(toEdit);
 };
