@@ -19,10 +19,10 @@ module.exports.run = async (message, args) => {
                 `Я покинул Ваш сервер **${guild.name}** из-за добавления его в Чёрный Список создателем бота.\n\n` +
                 "Если Вы хотите обжаловать это, заходите на наш сервер поддержки - https://discord.gg/sof"
             ).then(() => {
-                toEdit += "Сообщение в ЛС создателю сервера было отправлено.\n";
+                toEdit += "\nСообщение в ЛС создателю сервера было отправлено.";
                 m.edit(toEdit);
             }).catch(() => {
-                toEdit += "Не удалось отправить сообщение в ЛС создателя сервера.\n";
+                toEdit += "\nНе удалось отправить сообщение в ЛС создателя сервера.";
                 m.edit(toEdit);
             });
         };
@@ -35,6 +35,6 @@ module.exports.run = async (message, args) => {
 
     gldb.addToArray("blacklistedServers", args[0]);
 
-    toEdit += "Готово.";
+    toEdit += "\nГотово.";
     m.edit(toEdit);
 };
