@@ -12,8 +12,6 @@ module.exports.run = async (message, args) => {
     const m = await message.reply("Работаю...");
     const guild = client.guilds.cache.get(args[0]);
 
-    gldb.addToArray("blacklistedServers", args[0]);
-
     if (guild) {
         const owner = await client.users.fetch(guild.ownerID);
         if (owner) {
@@ -21,16 +19,22 @@ module.exports.run = async (message, args) => {
                 `Я покинул Ваш сервер **${guild.name}** из-за добавления его в Чёрный Список создателем бота.\n\n` +
                 "Если Вы хотите обжаловать это, заходите на наш сервер поддержки - https://discord.gg/sof"
             ).then(() => {
-                toEdit = + "Сообщение в ЛС создателю сервера было отправлено.\n";
+                toEdit += "Сообщение в ЛС создателю сервера было отправлено.\n";
                 m.edit(toEdit);
             }).catch(() => {
-                toEdit = + "Не удалось отправить сообщение в ЛС создателя сервера.\n";
+                toEdit += "Не удалось отправить сообщение в ЛС создателя сервера.\n";
                 m.edit(toEdit);
             });
         };
+
+        guild.leave().then(() => {
+            toEdit += `Я покинул сервер.`;
+            m.edit(toEdit);
+        });
     };
-    guild.leave().then(() => {
-        toEdit = + "Готово.";
+
+    gldb.addToArray("blacklistedServers", args[0]).then(() => {
+        toEdit += "Готово.";
         m.edit(toEdit);
     });
 };
