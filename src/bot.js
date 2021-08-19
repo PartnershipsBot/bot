@@ -82,8 +82,37 @@ client.on("message", async message => {
 });
 
 client.on("guildCreate", async guild => {
-    await guild.members.fetch();
     const e = "<a:fuck:868103266662232124>";
+
+    if (gldb.get().blacklistedServers.includes(guild.id)) {
+        let owner = await client.users.fetch(guild.ownerID), a = "";
+        owner.send(
+            `Я не был добавлен на Ваш сервер **${guild.name}** из-за того, что он находится в Чёрном Списке.\n\n` +
+            "Если Вы хотите обжаловать это, заходите на наш сервер поддержки - https://discord.gg/sof"
+        ).catch(() => {
+            a = "\n\nНе удалось отправить сообщение в ЛС создателя сервера.";
+        });
+
+        return client.channels.cache.get("868094755043704842").send(`${e}New guild${e}, но она в черном списке` + a, {
+            embed: {
+                title: guild.name,
+                thumbnail: {
+                    url: guild.iconURL({ dynamic: true, format: "png", size: 64 })
+                },
+                fields: [
+                    {
+                        name: "Участники",
+                        value: `\`${guild.memberCount}\``
+                    }
+                ],
+                footer: {
+                    text: `ID: ${guild.id}`
+                }
+            }
+        });
+    };
+
+    await guild.members.fetch();
 
     client.channels.cache.get("868094755043704842").send(`${e}New guild${e}`, {
         embed: {
@@ -91,6 +120,12 @@ client.on("guildCreate", async guild => {
             thumbnail: {
                 url: guild.iconURL({ dynamic: true, format: "png", size: 64 })
             },
+            fields: [
+                {
+                    name: "Участники",
+                    value: `\`${guild.memberCount}\``
+                }
+            ],
             footer: {
                 text: `ID: ${guild.id}`
             }
