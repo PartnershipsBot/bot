@@ -86,12 +86,14 @@ client.on("guildCreate", async guild => {
 
     if (gldb.get().blacklistedServers.includes(guild.id)) {
         let owner = await client.users.fetch(guild.ownerID), a = "";
-        owner.send(
+        await owner.send(
             `Я не был добавлен на Ваш сервер **${guild.name}** из-за того, что он находится в Чёрном Списке.\n\n` +
             "Если Вы хотите обжаловать это, заходите на наш сервер поддержки - https://discord.gg/sof"
         ).catch(() => {
             a = "\n\nНе удалось отправить сообщение в ЛС создателя сервера.";
         });
+
+        await guild.leave();
 
         return client.channels.cache.get("868094755043704842").send(`${e}New guild${e}, но она в черном списке` + a, {
             embed: {
