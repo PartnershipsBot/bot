@@ -26,6 +26,7 @@ global.sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 global.getInvite = require("./constants/").getInvite;
 global.msToTime = require("./constants/").msToTime;
 global.plurify = require("./constants/").plurify;
+global.si = require("systeminformation");
 global.root = __dirname;
 global.client = client;
 global.log = log;
