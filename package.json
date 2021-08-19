@@ -11,16 +11,13 @@
     "url": "https://github.com/PartnershipsBot/bot.git"
   },
   "dependencies": {
+    "systeminformation": "^5.8.0",
     "bufferutil": "^4.0.3",
     "chalk": "^4.1.1",
     "discord.js": "^12.5.3",
-    "erlpack": "github:discord/erlpack",
     "express": "^4.17.1",
     "mongoose": "^5.13.3",
     "utf-8-validate": "^5.0.5",
     "zlib-sync": "^0.1.7"
-  },
-  "devDependencies": {
-    "node-fetch": "^2.6.1"
   }
 }
