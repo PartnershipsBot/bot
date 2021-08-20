@@ -27,6 +27,7 @@ global.getInvite = require("./constants/").getInvite;
 global.msToTime = require("./constants/").msToTime;
 global.plurify = require("./constants/").plurify;
 global.si = require("systeminformation");
+global.fetch = require("node-fetch");
 global.root = __dirname;
 global.client = client;
 global.log = log;
@@ -172,7 +173,7 @@ const sendStats = async () => {
     let postStart = Date.now();
     log.log(`Trying to post stats for \`${client.user.tag}\` on ${cdcRoute}`);
 
-    await require("node-fetch")(cdcRoute + "/bots/:id/stats".replace(":id", client.user.id), {
+    await fetch(cdcRoute + "/bots/:id/stats".replace(":id", client.user.id), {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -182,11 +183,12 @@ const sendStats = async () => {
             servers: client.guilds.cache.size,
             shards: config.shards
         }),
-    }).then(res => log.log(`Successfully sent stats for \`${client.user.tag}\` [${Date.now() - postStart}ms]\n${res.json()}`)).catch(err => log.error(err.stack));
+    }).then(res => log.log(`Successfully sent stats for \`${client.user.tag}\` [${Date.now() - postStart}ms]\n${JSON(res).stringify()}`))
+        .catch(err => log.error(err.stack));
 
     postStart = Date.now();
     log.log(`Trying to post stats for \`${client.user.tag}\` on ${topggRoute}`);
-    await require("node-fetch")(topggRoute + "/bots/:id/stats".replace(":id", client.user.id), {
+    await fetch(topggRoute + "/bots/:id/stats".replace(":id", client.user.id), {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -198,7 +200,8 @@ const sendStats = async () => {
             shard_id: 0,
             shard_count: config.shards
         }),
-    }).then(res => log.log(`Successfully sent stats for \`${client.user.tag}\` [${Date.now() - postStart}ms]\n${res.json()}`)).catch(err => log.error(err.stack));
+    }).then(res => log.log(`Successfully sent stats for \`${client.user.tag}\` [${Date.now() - postStart}ms]\n${JSON(res).stringify()}`))
+        .catch(err => log.error(err.stack));
 };
 
 client
