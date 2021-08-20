@@ -182,7 +182,7 @@ const sendStats = async () => {
             servers: client.guilds.cache.size,
             shards: config.shards
         }),
-    }).then(res => log.log(`Successfully sent stats for \`${client.user.tag}\` [${Date.now() - postStart}ms]\n${res.text()}`)).catch(err => log.error(err.stack));
+    }).then(res => log.log(`Successfully sent stats for \`${client.user.tag}\` [${Date.now() - postStart}ms]\n${res.json()}`)).catch(err => log.error(err.stack));
 
     postStart = Date.now();
     log.log(`Trying to post stats for \`${client.user.tag}\` on ${topggRoute}`);
@@ -198,7 +198,7 @@ const sendStats = async () => {
             shard_id: 0,
             shard_count: config.shards
         }),
-    }).then(res => log.log(`Successfully sent stats for \`${client.user.tag}\` [${Date.now() - postStart}ms]\n${res.text()}`)).catch(err => log.error(err.stack));
+    }).then(res => log.log(`Successfully sent stats for \`${client.user.tag}\` [${Date.now() - postStart}ms]\n${res.json()}`)).catch(err => log.error(err.stack));
 };
 
 client
