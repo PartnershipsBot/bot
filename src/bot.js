@@ -56,7 +56,7 @@ client.once("shardReady", async (shardid, unavailable = new Set()) => {
     await updatePresence();
     client.setInterval(updatePresence, 10000); // 10 seconds
 
-    if (config.CDCToken) {
+    if (config.cdcToken && config.topggToken) {
         await sendStats();
         client.setInterval(sendStats, 30 * 60 * 1000); // 30 minutes
     };
@@ -164,20 +164,41 @@ const updatePresence = async () => {
 
 const sendStats = async () => {
     let
-        route = "https://api.server-discord.com/v2",
-        token = config.CDCToken;
+        cdcRoute = "https://api.server-discord.com/v2",
+        cdcToken = config.cdcToken,
+        topggRoute = "https://top.gg/api",
+        topggToken = config.topggToken;
 
     let postStart = Date.now();
-    log.log(`Trying to post stats for \`${client.user.tag}\``);
+    log.log(`Trying to post stats for \`${client.user.tag}\` on ${cdcRoute}`);
 
-    require('node-fetch')(route + "/bots/:id/stats".replace(":id", client.user.id), {
-        method: 'POST',
+    await require("node-fetch")(cdcRoute + "/bots/:id/stats".replace(":id", client.user.id), {
+        method: "POST",
         headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `SDC ${token}`,
+            "Content-Type": "application/json",
+            "Authorization": `SDC ${cdcToken}`,
         },
-        body: JSON.stringify({ servers: client.guilds.cache.size, shards: config.shards }),
-    }).then(() => log.log(`Successfully sent stats for \`${client.user.tag}\` [${Date.now() - postStart}ms]`)).catch(err => log.error(err));
+        body: JSON.stringify({
+            servers: client.guilds.cache.size,
+            shards: config.shards
+        }),
+    }).then(() => log.log(`Successfully sent stats for \`${client.user.tag}\` [${Date.now() - postStart}ms]`)).catch(err => log.error(err.stack));
+
+    postStart = Date.now();
+    log.log(`Trying to post stats for \`${client.user.tag}\` on ${topggRoute}`);
+    await require("node-fetch")(topggRoute + "/bots/:id/stats".replace(":id", client.user.id), {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": topggToken,
+        },
+        body: JSON.stringify({
+            server_count: client.shard.broadcastEval('this.guilds.cache.size')
+                .then(results => results.map(t=>t)),
+            shard_id: 0,
+            shard_count: config.shards
+        }),
+    }).then(() => log.log(`Successfully sent stats for \`${client.user.tag}\` [${Date.now() - postStart}ms]`)).catch(err => log.error(err.stack));
 };
 
 client
