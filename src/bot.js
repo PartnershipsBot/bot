@@ -180,7 +180,7 @@ const sendStats = async () => {
             "Authorization": `SDC ${cdcToken}`,
         },
         body: JSON.stringify({
-            servers: client.guilds.cache.size,
+            servers: await client.shard.broadcastEval("this.guilds.cache.size").then(res => res.reduce((prev, val) => prev + val, 0)),
             shards: config.shards
         }),
     }).then(res => log.log(`Successfully sent stats for \`${client.user.tag}\` [${Date.now() - postStart}ms]\n${JSON.stringify(res)}`))
@@ -195,8 +195,7 @@ const sendStats = async () => {
             "Authorization": topggToken,
         },
         body: JSON.stringify({
-            server_count: client.shard.broadcastEval('this.guilds.cache.size')
-                .then(results => results.map(t=>t)),
+            server_count: await client.shard.broadcastEval("this.guilds.cache.size").then(res => res.reduce((prev, val) => prev + val, 0)),
             shard_id: 0,
             shard_count: config.shards
         }),
