@@ -183,7 +183,7 @@ const sendStats = async () => {
             servers: client.guilds.cache.size,
             shards: config.shards
         }),
-    }).then(res => log.log(`Successfully sent stats for \`${client.user.tag}\` [${Date.now() - postStart}ms]\n${JSON(res).stringify()}`))
+    }).then(res => log.log(`Successfully sent stats for \`${client.user.tag}\` [${Date.now() - postStart}ms]\n${JSON.stringify(res)}`))
         .catch(err => log.error(err.stack));
 
     postStart = Date.now();
@@ -200,7 +200,7 @@ const sendStats = async () => {
             shard_id: 0,
             shard_count: config.shards
         }),
-    }).then(res => log.log(`Successfully sent stats for \`${client.user.tag}\` [${Date.now() - postStart}ms]\n${JSON(res).stringify()}`))
+    }).then(res => log.log(`Successfully sent stats for \`${client.user.tag}\` [${Date.now() - postStart}ms]\n${JSON.stringify(res)}`))
         .catch(err => log.error(err.stack));
 };
 
