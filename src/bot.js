@@ -188,6 +188,7 @@ const sendStats = async () => {
 
     postStart = Date.now();
     log.log(`Trying to post stats for \`${client.user.tag}\` on ${topggRoute}`);
+
     await fetch(topggRoute + "/bots/:id/stats".replace(":id", client.user.id), {
         method: "POST",
         headers: {
