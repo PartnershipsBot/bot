@@ -214,4 +214,4 @@ client
     .on("warn", info => log.warn(`${shard} Warning. ${info}`))
     .login(config.token);
 
-process.on("unhandledRejection", log.error());
+process.on("unhandledRejection", rej => log.error(rej.stack));
