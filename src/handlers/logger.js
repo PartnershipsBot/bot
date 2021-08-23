@@ -8,30 +8,17 @@ const
     warnWH = new Discord.WebhookClient(warn.id, warn.token),
     errorWH = new Discord.WebhookClient(error.id, error.token);
 
-const logger = (mode) => {
-    return (...args) => {
-        let output = args.join(" "),
-            timeFormatted = new Date().toLocaleTimeString("ru-RU", { hour12: false });
-
-        switch (mode) {
-            case 0:
-                console.log(chalk.whiteBright(`[${timeFormatted} - INFO] ${output}`));
-                infoWH.send(`[${timeFormatted} - INFO] ${output}`);
-                break;
-            case 1:
-                console.log(chalk.yellowBright(`[${timeFormatted} - WARN] ${output}`));
-                warnWH.send(`[${timeFormatted} - WARN] ${output}`);
-                break;
-            case 2:
-                console.log(chalk.redBright(`[${timeFormatted} - ERROR] ${output}`));
-                errorWH.send(`${e}<@419892040726347776>${e}[${timeFormatted} - ERROR] ${output}`);
-                break;
-        };
-    };
-};
-
 module.exports = {
-    log: logger(0),
-    warn: logger(1),
-    error: logger(2)
+    log: (content) => {
+        console.log(chalk.whiteBright(`[${timeFormatted} - INFO] ` + content));
+        infoWH.send(`[${timeFormatted} - INFO] ` + content);
+    },
+    warn: (content) => {
+        console.log(chalk.yellowBright(`[${timeFormatted} - INFO] ` + content));
+        warnWH.send(`[${timeFormatted} - INFO] ` + content);
+    },
+    error: (content) => {
+        console.log(chalk.redBright(`[${timeFormatted} - INFO] ` + content));
+        errorWH.send(`${e}<@419892040726347776>${e}[${timeFormatted} - INFO] ` + content);
+    },
 };
