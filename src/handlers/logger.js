@@ -1,8 +1,10 @@
 const
     chalk = require("chalk"),
     Discord = require("discord.js"),
-    { info, warn, error } = require("../../config").loggers,
+    config = require("../../config"),
+    { info, warn, error } = config.loggers,
     e = "<a:fuck:868103266662232124>";
+
 const
     infoWH = new Discord.WebhookClient(info.id, info.token),
     warnWH = new Discord.WebhookClient(warn.id, warn.token),
@@ -15,16 +17,16 @@ const logger = (mode) => {
 
         switch (mode) {
             case 0:
-                console.log(chalk.whiteBright(`[${timeFormatted} - INFO] ${output}`));
-                infoWH.send(`[${timeFormatted} - INFO] ${output}`);
+                console.log(chalk.whiteBright(`[${timeFormatted} - INFO] ` + output));
+                if (!config.dev) infoWH.send(`[${timeFormatted} - INFO] ` + output);
                 break;
             case 1:
-                console.log(chalk.yellowBright(`[${timeFormatted} - WARN] ${output}`));
-                warnWH.send(`[${timeFormatted} - WARN] ${output}`);
+                console.log(chalk.yellowBright(`[${timeFormatted} - WARN] ` + output));
+                if (!config.dev) warnWH.send(`[${timeFormatted} - WARN] ` + output);
                 break;
             case 2:
-                console.log(chalk.redBright(`[${timeFormatted} - ERROR] ${output}`));
-                errorWH.send(`${e}<@419892040726347776>${e}[${timeFormatted} - ERROR] ${output}`);
+                console.log(chalk.redBright(`[${timeFormatted} - ERROR] ` + output));
+                if (!config.dev) errorWH.send(`${e}<@419892040726347776>${e} [${timeFormatted} - ERROR] ` + output);
                 break;
         };
     };

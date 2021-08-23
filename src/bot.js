@@ -57,7 +57,7 @@ client.once("shardReady", async (shardid, unavailable = new Set()) => {
     await updatePresence();
     client.setInterval(updatePresence, 10000); // 10 seconds
 
-    if (config.cdcToken && config.topggToken) {
+    if (config.cdcToken && config.topggToken && !config.dev) {
         await sendStats();
         client.setInterval(sendStats, 30 * 60 * 1000); // 30 minutes
     };
