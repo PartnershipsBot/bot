@@ -59,7 +59,7 @@ client.once("shardReady", async (shardid, unavailable = new Set()) => {
 
     if (config.cdcToken && config.topggToken && !config.dev) {
         await sendStats();
-        client.setInterval(sendStats, 30 * 60 * 1000); // 30 minutes
+        client.setInterval(sendStats, 60 * 60 * 1000); // 60 minutes
     };
 });
 
