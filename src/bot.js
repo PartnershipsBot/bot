@@ -5,9 +5,6 @@ const
     { prefix } = require("../config"),
     commandHandler = require("./handlers/commands"),
     client = new Discord.Client({
-        messageCacheMaxSize: 20,
-        messageCacheLifetime: 10,
-        messageSweepInterval: 30,
         messageEditHistoryMaxSize: 0,
         disableMentions: "all",
         partials: ["GUILD_MEMBER", "MESSAGE"],
