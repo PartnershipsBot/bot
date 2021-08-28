@@ -17,7 +17,7 @@ module.exports = async (message = new Message, prefix = String, gdb, db) => {
     const processCommand = async () => {
         log.log(`**${message.author.tag.replace("*", "\*")}** used the \`${commandName}\` command (\`${message.guild.name}\` - \`${message.channel.name}\`)`);
 
-        if (static) return message.channel.send(static.message.replace(/{{INVITE}}/g, await client.generateInvite({ permissions: 19529 })));
+        if (static) return message.channel.send(static.message.replace(/{{INVITE}}/g, await client.generateInvite({ permissions: 281673 })));
 
         const commandFile = commands.get(commandName);
 
