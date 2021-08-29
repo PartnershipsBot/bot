@@ -73,6 +73,8 @@ client.on("message", async message => {
     global.gdb = gdb;
     global.gldb = db.global;
 
+    if (gldb.get().blacklistedUsers.includes(message.author.id)) return;
+
     let { prefix } = gdb.get();
     if (!prefix.length) prefix = config.prefix;
 
