@@ -76,6 +76,7 @@ module.exports.run = async (message = new Message, args, gdb) => {
             }
         });
     }, 1000);
+    gdb.set("nextBump", Date.now() + 14400000); // 4 hours
 
     await Promise.all(client.guilds.cache.map(async (guild = new Guild) => {
         if (!guild.available || guild.id === message.guild.id) return;
@@ -89,7 +90,6 @@ module.exports.run = async (message = new Message, args, gdb) => {
         completed++;
     }));
     clearInterval(messageInterval);
-    gdb.set("nextBump", Date.now() + 21600000);
     return m.edit({
         embed: {
             title: "Рассылка окончена!",
