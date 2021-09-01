@@ -29,8 +29,8 @@ module.exports.run = async (message = new Message, args, gdb) => {
         invite = await getInvite(g),
         memberCount = g.members.cache.filter(member => !member.user.bot).size,
         channel = g.channels.cache.get(gdb.get().channel),
-        owner = g.owner.user.tag.replace(/`/g, "`" + String.fromCharCode(8203)),
-        ownerID = g.owner.user.id;
+        ownerID = g.ownerID,
+        owner = await g.members.fetch(ownerID);
 
     if (!description.length) return m.edit(`❌ Для начала опишите свой сервер используя команду \`${pref}description set\``);
     if (!channel) return m.edit(`❌ Не удалось найти канал рассылки партнёрств на этом сервере. Вы указывали его используя команду \`${pref}channel set\`?`);
@@ -56,7 +56,7 @@ module.exports.run = async (message = new Message, args, gdb) => {
             },
             {
                 name: "Владелец",
-                value: `\`${owner}\` (\`${ownerID}\`)`
+                value: `\`${owner.user.tag}\` (\`${ownerID}\`)`
             }
         ]);
     if (g.banner) {
@@ -85,7 +85,7 @@ module.exports.run = async (message = new Message, args, gdb) => {
             cID = guildDB.get().channel,
             channel = guild.channels.cache.get(cID);
         if (!channel) return;
-        if (!channel.permissionsFor(guild.me).has("SEND_MESSAGES")) return;
+        if (!channel.permissionsFor(guild.me).has("SEND_MESSAGES") && !channel.permissionsFor(guild.me).has("EMBED_LINKS")) return;
         channel.send(embed);
         completed++;
     }));

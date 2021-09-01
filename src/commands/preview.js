@@ -17,8 +17,8 @@ module.exports.run = async (message = new Message, args, gdb) => {
         invite = await getInvite(guild, gdb),
         memberCount = guild.members.cache.filter(member => !member.user.bot).size,
         channel = guild.channels.cache.get(gdb.get().channel),
-        owner = guild.owner.user.tag.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203)),
-        ownerID = guild.owner.user.id;
+        ownerID = guild.ownerID,
+        owner = await guild.members.fetch(ownerID);
 
     if (!description.length) return message.reply(`❌ Для начала опишите свой сервер используя команду \`${pref}description set\``);
     if (!channel) return message.reply(`❌ Не удалось найти канал рассылки партнёрств на этом сервере. Вы указывали его используя команду \`${pref}channel set\`?`);
@@ -44,7 +44,7 @@ module.exports.run = async (message = new Message, args, gdb) => {
             },
             {
                 name: "Владелец",
-                value: `\`${owner}\` (\`${ownerID}\`)`
+                value: `\`${owner.user.id}\` (\`${ownerID}\`)`
             }
         ]);
     if (guild.banner) {

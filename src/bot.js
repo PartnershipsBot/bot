@@ -44,10 +44,6 @@ client.once("shardReady", async (shardid, unavailable = new Set()) => {
     await db.cacheGuilds(disabledGuilds);
     log.log(`${shard} All ${disabledGuilds.size} guilds have been cached. [${Date.now() - guildCachingStart}ms]`);
 
-    let userCachingStart = Date.now();
-    await Promise.all(client.guilds.cache.map(guild => guild.members.fetch()));
-    log.log(`${shard} All ${client.users.cache.size} users have been cached. [${Date.now() - userCachingStart}ms]`);
-
     disabledGuilds.size = 0;
     client.loading = false;
 
