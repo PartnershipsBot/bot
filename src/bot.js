@@ -111,8 +111,6 @@ client.on("guildCreate", async guild => {
         });
     };
 
-    await guild.members.fetch();
-
     client.channels.cache.get("868094755043704842").send(`${e}New guild${e}`, {
         embed: {
             title: guild.name,
