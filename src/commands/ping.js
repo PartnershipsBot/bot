@@ -9,8 +9,6 @@ module.exports = {
 
 module.exports.run = async (message) => {
     const m = await message.reply("〽️ Собираю информацию...");
-    //let dbPing = Date.now();
-    //await require("node-fetch")("cluster0.2xmz7.mongodb.net:27017").then(() => dbPing = Date.now() - dbPing); // change "cluster0.2xmz7.mongodb.net" to your db domain
 
     return m.edit("", {
         embed: {
@@ -20,10 +18,6 @@ module.exports.run = async (message) => {
                     name: "Сервер",
                     value: `\`${m.createdTimestamp - message.createdTimestamp}ms\``
                 },
-                /*{
-                    name: "База данных",
-                    value: `\`${dbPing}ms\``
-                },*/
                 {
                     name: "API",
                     value: `\`${Math.round(client.ws.ping)}ms\``
