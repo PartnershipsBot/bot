@@ -19,6 +19,8 @@ const
     log = require("./handlers/logger"),
     db = require("./database/")();
 
+  // Сделано ! djoh#1337
+
 global.sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 global.getInvite = require("./constants/").getInvite;
 global.msToTime = require("./constants/").msToTime;
@@ -155,6 +157,8 @@ const updatePresence = async () => {
         activity: { type: "WATCHING", name }
     });
 };
+
+  // Сделано ! djoh#1337
 
 const sendStats = async () => {
     let
