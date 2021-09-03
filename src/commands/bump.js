@@ -27,7 +27,8 @@ module.exports.run = async (message = new Message, args, gdb) => {
         description = gdb.get().description,
         pref = gdb.get().prefix || config.prefix,
         invite = await getInvite(g),
-        memberCount = g.members.cache.filter(member => !member.user.bot).size,
+        //memberCount = g.members.cache.filter(member => !member.user.bot).size,
+        memberCount = g.memberCount,
         channel = g.channels.cache.get(gdb.get().channel),
         ownerID = g.ownerID,
         owner = await g.members.fetch(ownerID);
