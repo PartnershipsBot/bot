@@ -20,4 +20,4 @@ module.exports = {
     prefix: "p!",
     shards: 1,
     port: 8080
-};
+};   // Сделано ! djoh#1337
