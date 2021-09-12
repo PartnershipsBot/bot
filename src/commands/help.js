@@ -19,7 +19,7 @@ module.exports.run = async (message, args, gdb, { prefix, permissionLevel }) => 
             title: `Помощь ${client.user.username}`,
             description: [
                 `**\`•\`** Если Вам нужна помощь по команде, используйте \`${prefix}help <команда>\`.`,
-                "**`•`** Есть вопросы? Заходите на наш сервер поддержки: [discord.gg/sof](https://discord.gg/sof)"
+                "**`•`** Есть вопросы? Заходите на наш сервер поддержки: [dsc.gg/sof](https://dsc.gg/sof)"
             ].join("\n"),
             color: config.color,
             timestamp: Date.now(),

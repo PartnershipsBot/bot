@@ -85,7 +85,7 @@ client.on("guildCreate", async guild => {
         let owner = await client.users.fetch(guild.ownerID), a = "";
         await owner.send(
             `Я не был добавлен на Ваш сервер **${guild.name}** из-за того, что он находится в Чёрном Списке.\n\n` +
-            "Если Вы хотите обжаловать это, заходите на наш сервер поддержки - https://discord.gg/sof"
+            "Если Вы хотите обжаловать это, заходите на наш сервер поддержки - https://dsc.gg/sof"
         ).catch(() => {
             a = "\n\nНе удалось отправить сообщение в ЛС создателя сервера.";
         });
