@@ -16,7 +16,7 @@ module.exports.run = async (message = new Message, args, gdb) => {
         embed: {
             title: "Начинаю рассылку...",
             footer: {
-                icon_url: message.author.displayAvatarURL(),
+                icon_url: message.author.displayAvatarURL({ dynamic: true }),
                 text: `Запрос от ${message.author.tag}`
             }
         }
@@ -38,6 +38,7 @@ module.exports.run = async (message = new Message, args, gdb) => {
     if (!channel.permissionsFor(message.guild.me).has("SEND_MESSAGES")) return m.edit("❌ У меня нет прав на отправление сообщений в указанном канале.");
     if (!channel.permissionsFor(message.guild.me).has("CREATE_INSTANT_INVITE")) return m.edit("❌ У меня нет прав на создание приглашений в указанном канале.");
     if (!invite) return m.edit("❌ Не удалось получить приглашение. Сообщите разработчику.");
+    gdb.set("nextBump", Date.now() + 14400000); // 4 hours
 
     let embed = new MessageEmbed()
         .setTitle(g.name)
@@ -71,13 +72,12 @@ module.exports.run = async (message = new Message, args, gdb) => {
                 title: "Идёт рассылка...",
                 description: `\`${completed}/${client.guilds.cache.size}\` серверов было обработано.`,
                 footer: {
-                    icon_url: message.author.displayAvatarURL(),
+                    icon_url: message.author.displayAvatarURL({ dynamic: true }),
                     text: `Запрос от ${message.author.tag}`
                 }
             }
-        });
+        }).catch();
     }, 1000);
-    gdb.set("nextBump", Date.now() + 14400000); // 4 hours
 
     await Promise.all(client.guilds.cache.map(async (guild = new Guild) => {
         if (!guild.available || guild.id === message.guild.id) return;
@@ -96,9 +96,9 @@ module.exports.run = async (message = new Message, args, gdb) => {
             title: "Рассылка окончена!",
             description: `Сообщение было разослано на \`${completed}/${client.guilds.cache.size}\` серверов.`,
             footer: {
-                icon_url: message.author.displayAvatarURL(),
+                icon_url: message.author.displayAvatarURL({ dynamic: true }),
                 text: `Запрос от ${message.author.tag}`
             }
         }
-    });
+    }).catch();
 };
