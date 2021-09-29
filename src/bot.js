@@ -164,7 +164,7 @@ const sendStats = async () => {
         topggToken = config.topggToken;
 
     let cdcPost = Date.now();
-    log.log(`Trying to post stats for \`${client.user.tag}\` on ${cdcRoute}`);
+    //log.log(`Trying to post stats for \`${client.user.tag}\` on ${cdcRoute}`);
 
     await fetch(cdcRoute + "/bots/:id/stats".replace(":id", client.user.id), {
         method: "POST",
@@ -180,7 +180,7 @@ const sendStats = async () => {
         .catch(err => log.error(err.stack));
 
     topggPost = Date.now();
-    log.log(`Trying to post stats for \`${client.user.tag}\` on ${topggRoute}`);
+    //log.log(`Trying to post stats for \`${client.user.tag}\` on ${topggRoute}`);
 
     await fetch(topggRoute + "/bots/:id/stats".replace(":id", client.user.id), {
         method: "POST",
