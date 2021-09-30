@@ -176,7 +176,7 @@ const sendStats = async () => {
             servers: await client.shard.broadcastEval("this.guilds.cache.size").then(res => res.reduce((prev, val) => prev + val, 0)),
             shards: config.shards
         }),
-    }).then(res => log.log(`Successfully sent stats for \`${client.user.tag}\` [${Date.now() - cdcPost}ms]\n${JSON.stringify(res)}`))
+    }).then(res => /*log.log(`Successfully sent stats for \`${client.user.tag}\` [${Date.now() - cdcPost}ms]\n${JSON.stringify(res)}`)*/)
         .catch(err => log.error(err.stack));
 
     topggPost = Date.now();
@@ -193,7 +193,7 @@ const sendStats = async () => {
             shard_id: 0,
             shard_count: config.shards
         }),
-    }).then(res => log.log(`Successfully sent stats for \`${client.user.tag}\` [${Date.now() - topggPost}ms]\n${JSON.stringify(res)}`))
+    }).then(res => /*log.log(`Successfully sent stats for \`${client.user.tag}\` [${Date.now() - topggPost}ms]\n${JSON.stringify(res)}`)*/)
         .catch(err => log.error(err.stack));
 };
 
