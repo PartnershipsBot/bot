@@ -7,26 +7,12 @@ module.exports = {
     checkArgs: (args) => !args.length
 };
 
-module.exports.run = async (message) => {
-    const m = await message.reply("〽️ Собираю информацию...");
+const { msToTime } = require("../constants/");
 
-    return m.edit("", {
-        embed: {
-            title: "🏓 Понг!",
-            fields: [
-                {
-                    name: "Сервер",
-                    value: `\`${m.createdTimestamp - message.createdTimestamp}ms\``
-                },
-                {
-                    name: "API",
-                    value: `\`${Math.round(client.ws.ping)}ms\``
-                },
-                {
-                    name: "Аптайм",
-                    value: `\`${msToTime(client.uptime)}\``
-                }
-            ]
-        }
-    });
+module.exports.run = async (message) => {
+    const uptime = msToTime(message.client.uptime);
+    const api = Math.ceil(message.client.ws.ping);
+    const server = Date.now() - message.createdTimestamp;
+
+    return await message.reply(`🏓 Пинг сервера \`${server}ms\`, пинг API \`${api}ms\`, аптайм бота \`${uptime}\`.`);
 };
